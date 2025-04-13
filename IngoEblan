@@ -140,7 +140,7 @@ local AutoWheel = ItemsTab:CreateToggle({
 })
 
 local EggsTab = Window:CreateTab("Eggs", "rewind")
-local EggsText = Tab:CreateSection("This is necessary to open the eggs a little faster.")
+local EggsText = EggsTab:CreateSection("This is necessary to open the eggs a little faster.")
 
 local SelectedEgg = ""
 local Eggs = {}
