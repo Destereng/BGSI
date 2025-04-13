@@ -197,7 +197,35 @@ local RiftsTab = Window:CreateTab("Rifts", "rewind")
 local RiftText = RiftsTab:CreateSection("ВААААААААААААААААНННННННННННННННЯЯЯЯЯЯЯЯЯЯЯЯЯ ЕБЛАААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААНННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННН Allows you to view all rifts and teleport to them")
 
 local Button = RiftsTab:CreateButton({
-   Name = "Удаляемая кнопка",
+   Name = "Dont work",
+   Callback = function()
+      
+   end,
+})
+
+local Button = RiftsTab:CreateButton({
+   Name = "Dont work",
+   Callback = function()
+      
+   end,
+})
+
+local Button = RiftsTab:CreateButton({
+   Name = "Dont work",
+   Callback = function()
+      
+   end,
+})
+
+local Button = RiftsTab:CreateButton({
+   Name = "Dont work",
+   Callback = function()
+      
+   end,
+})
+
+local Button = RiftsTab:CreateButton({
+   Name = "Dont work",
    Callback = function()
       
    end,
