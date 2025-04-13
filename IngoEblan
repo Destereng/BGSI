@@ -1,160 +1,171 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
 local Window = Rayfield:CreateWindow({
-   Name = "BGSI Cheat",
-   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "BubbleGum Simulator Infinity Cheat",
-   LoadingSubtitle = "Ingo eblan",
-   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+	Name = "BGSI Cheat",
+	Icon = 0,
+	LoadingTitle = "BubbleGum Simulator Infinity Cheat",
+	LoadingSubtitle = "Ingo eblan",
+	Theme = "Default",
 
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+	DisableRayfieldPrompts = false,
+	DisableBuildWarnings = false,
 
-   ConfigurationSaving = {
-      Enabled = false,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Big Hub"
-   },
+	ConfigurationSaving = {
+		Enabled = false,
+		FolderName = nil,
+		FileName = "Big Hub"
+	},
 
-   Discord = {
-      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
+	Discord = {
+		Enabled = false,
+		Invite = "noinvitelink",
+		RememberJoins = true
+	},
 
-   KeySystem = false, -- Set this to true to use our key system
-   KeySettings = {
-      Title = "Untitled",
-      Subtitle = "Key System",
-      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-   }
+	KeySystem = false,
+	KeySettings = {
+		Title = "Untitled",
+		Subtitle = "Key System",
+		Note = "No method of obtaining the key is provided",
+		FileName = "Key",
+		SaveKey = true,
+		GrabKeyFromSite = false,
+		Key = {"Hello"}
+	}
 })
 
 local FarmTab = Window:CreateTab("Farm", "rewind")
+
 local AutoBlowOn = false
 local AutoBlow = FarmTab:CreateToggle({
-   Name = "Auto Blow",
-   Value = false,
-   Flag = "Toggle1",
-   Callback = function(Value)
-      AutoBlowOn = Value
-   end,
+	Name = "Auto Blow",
+	Value = false,
+	Flag = "Toggle1",
+	Callback = function(Value)
+		AutoBlowOn = Value
+	end,
 })
 
 local AutoSellOn = false
 local AutoSell = FarmTab:CreateToggle({
-   Name = "Auto Sell",
-   Value = false,
-   Flag = "Toggle2",
-   Callback = function(Value)
-      AutoSellOn = Value
-   end,
+	Name = "Auto Sell",
+	Value = false,
+	Flag = "Toggle2",
+	Callback = function(Value)
+		AutoSellOn = Value
+	end,
 })
+
 local ItemsTab = Window:CreateTab("Items", "rewind")
+
 local AutoDoggyOn = false
 local AutoDoggy = ItemsTab:CreateToggle({
-   Name = "Auto Doggy Game",
-   Value = false,
-   Flag = "Toggle3",
-   Callback = function(Value)
-      AutoDoggyOn = Value
-   end,
+	Name = "Auto Doggy Game",
+	Value = false,
+	Flag = "Toggle3",
+	Callback = function(Value)
+		AutoDoggyOn = Value
+	end,
 })
+
 local AutoPlaytimeOn = false
 local AutoPlaytime = ItemsTab:CreateToggle({
-   Name = "Auto Collect Playtime",
-   Value = false,
-   Flag = "Toggle5",
-   Callback = function(Value)
-      AutoPlaytimeOn = Value
-   end,
+	Name = "Auto Collect Playtime",
+	Value = false,
+	Flag = "Toggle5",
+	Callback = function(Value)
+		AutoPlaytimeOn = Value
+	end,
 })
+
 local AutoChestsOn = false
 local AutoChests = ItemsTab:CreateToggle({
-   Name = "Auto Collect Chests",
-   Value = false,
-   Flag = "Toggle69",
-   Callback = function(Value)
-      AutoChestsOn = Value
-   end,
+	Name = "Auto Collect Chests",
+	Value = false,
+	Flag = "Toggle69",
+	Callback = function(Value)
+		AutoChestsOn = Value
+	end,
 })
 
 local EggsTab = Window:CreateTab("Eggs", "rewind")
+
 local SelectedEgg = ""
 local Eggs = {}
 for _,egg in pairs(game.ReplicatedStorage.Assets.Eggs:GetChildren()) do
-  if not string.find(egg.Name, "Golden") and not string.find(egg.Name, "Season") and not string.find(egg.Name, "Shop") and egg.Name ~= "PackageLink" then
-table.insert(Eggs, egg.Name)
-end
+	if not string.find(egg.Name, "Golden") and not string.find(egg.Name, "Season") and not string.find(egg.Name, "Shop") and egg.Name ~= "PackageLink" then
+		table.insert(Eggs, egg.Name)
+	end
 end
 local SelectEgg = EggsTab:CreateDropdown({
-   Name = "Select Egg",
-   Options = Eggs, 
-   CurrentOption = {},
-   MultipleOptions = false,
-   Flag = "Dropdown1",
-   Callback = function(CurrentOption)
-      for _,i in pairs(CurrentOption) do 
-         SelectedEgg = i
-      end
-   end,
+	Name = "Select Egg",
+	Options = Eggs, 
+	CurrentOption = {},
+	MultipleOptions = false,
+	Flag = "Dropdown1",
+	Callback = function(CurrentOption)
+		for _,i in pairs(CurrentOption) do 
+			SelectedEgg = i
+		end
+	end,
 })
+
 local CurrentEggsAmount = 1
 local EggsAmount = EggsTab:CreateSlider({
-   Name = "How many eggs to open",
-   Range = {1, 6},
-   Increment = 1,
-   Suffix = "Eggs",
-   CurrentValue = 1,
-   Flag = "Slider1",
-   Callback = function(CurrentValue)
-      CurrentEggsAmount = CurrentValue
-   end,
+	Name = "How many eggs to open",
+	Range = {1, 6},
+	Increment = 1,
+	Suffix = "Eggs",
+	CurrentValue = 1,
+	Flag = "Slider1",
+	Callback = function(CurrentValue)
+		CurrentEggsAmount = CurrentValue
+	end,
 })
+
 local AutoEggOn = false
 local AutoEgg = EggsTab:CreateToggle({
-   Name = "Open Eggs",
-   Value = false,
-   Flag = "Toggle4",
-   Callback = function(Value)
-      AutoEggOn = Value
-      if Value then
-         Rayfield:Notify({
-   Title = "Eggs Open",
-   Content = "To open eggs, you need to stand next to them",
-   Duration = 3,
-   Image = "rewind",
-})
-      end
-   end,
+	Name = "Open Eggs",
+	Value = false,
+	Flag = "Toggle4",
+	Callback = function(Value)
+		AutoEggOn = Value
+		if Value then
+			Rayfield:Notify({
+				Title = "Eggs Open",
+				Content = "To open eggs, you need to stand next to them",
+				Duration = 3,
+				Image = "rewind",
+			})
+		end
+	end,
 })
 
 while wait(0.1) do
-   if AutoChestsOn then
-      for _,chestName in pairs(workspace.Rendered.Chests:GetChildren()) do workspace.Rendered.Generic:FindFirstChild(chestName):FindFirstChild("ChestRespawn") then
-else
-game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("Teleport", workspace.Rendered.Chests:FindFirstChild(chestName))
-wait(2) game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("Claim Chest", chestName)
-      end
-      end
-   if AutoPlaytimeOn then
-      for i = 1,9 do
-         game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Function"):InvokeServer("ClaimPlaytime", i)
-      end
-   end
-   if AutoDoggyOn then
-      game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("DoggyJumpWin", 3)
-   end
-   if AutoBlowOn then
-      game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("BlowBubble")
-   end
-   if AutoSellOn then
-      game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("SellBubble")
-   end
-   if AutoEggOn then
-game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Event"):FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
-   end
+	if AutoChestsOn then
+		for _,chestName in pairs(workspace.Rendered.Chests:GetChildren()) do
+			if not workspace.Rendered.Generic:FindFirstChild(chestName):FindFirstChild("ChestRespawn") then
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", workspace.Rendered.Chests:FindFirstChild(chestName))
+				wait(2)
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("ClaimChest", chestName, true)
+			end
+		end
+	end
+	if AutoPlaytimeOn then
+		for i = 1,9 do
+			game.ReplicatedStorage.Shared.Framework.Network.Remote.Function:InvokeServer("ClaimPlaytime", i)
+		end
+	end
+	if AutoDoggyOn then
+		game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("DoggyJumpWin", 3)
+	end
+	if AutoBlowOn then
+		game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("BlowBubble")
+	end
+	if AutoSellOn then
+		game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("SellBubble")
+	end
+	if AutoEggOn then
+		game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
+	end
 end
