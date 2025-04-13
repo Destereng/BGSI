@@ -140,7 +140,7 @@ local AutoWheel = ItemsTab:CreateToggle({
 })
 
 local EggsTab = Window:CreateTab("Eggs", "rewind")
-local EggsText = EggsTab:CreateSection("This is necessary to open the eggs a little faster.")
+local EggsText = EggsTab:CreateSection("This is necessary to open the eggs a little faster")
 
 local SelectedEgg = ""
 local Eggs = {}
@@ -193,6 +193,17 @@ local AutoEgg = EggsTab:CreateToggle({
 	end,
 })
 
+local RiftsTab = Window:CreateTab("Rifts", "rewind")
+local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and teleport to them")
+
+local CurrentTab = nil
+local Button = RiftsTab:CreateButton({
+   Name = "Удаляемая кнопка",
+   Callback = function()
+      
+   end,
+})
+
 local while1 = coroutine.create(function()
 	while wait(10) do
 		if AutoChestsOn then
@@ -230,6 +241,12 @@ coroutine.resume(while1)
 
 local while2 = coroutine.create(function()
 	while wait(0.1) do
+		for _, tab in pairs(Window.Tabs) do
+         		if tab.SectionHolder and tab.SectionHolder.Visible then
+               			CurrentTab = tab.Name
+               			print("Переключились на вкладку:", CurrentTab)
+        		end
+		end
 		if AutoFarmOn then
 			for _,v in pairs(ColFolder:GetChildren()) do
 				game.ReplicatedStorage.Remotes.Pickups.CollectPickup:FireServer(v.Name)
