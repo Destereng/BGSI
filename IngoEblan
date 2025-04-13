@@ -143,11 +143,11 @@ local AutoEgg = EggsTab:CreateToggle({
 
 while wait(0.1) do
 	if AutoChestsOn then
-		for _,chestName in pairs(workspace.Rendered.Chests:GetChildren()) do
-			if not workspace.Rendered.Generic:FindFirstChild(chestName):FindFirstChild("ChestRespawn") then
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", workspace.Rendered.Chests:FindFirstChild(chestName))
-				wait(2)
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("ClaimChest", chestName, true)
+		for _,chest in pairs(workspace.Rendered.Chests:GetChildren()) do
+			if not workspace.Rendered.Generic:FindFirstChild(chest.Name):FindFirstChild("ChestRespawn") then
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", workspace.Rendered.Chests:FindFirstChild(chest.Name))
+				wait(1)
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("ClaimChest", chest.Name, true)
 			end
 		end
 	end
