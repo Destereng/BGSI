@@ -202,7 +202,7 @@ local Button = RiftsTab:CreateButton({
       
    end,
 })
-Button.Title.Text = "Test"
+Button.Section.TextBlabel.Text = "Test"
 
 local while1 = coroutine.create(function()
 	while wait(10) do
