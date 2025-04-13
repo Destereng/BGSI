@@ -34,6 +34,17 @@ local Window = Rayfield:CreateWindow({
 	}
 })
 
+local ColFolder = workspace
+for _,folder in pairs(workspace.Rendered:GetChildren()) do
+	if folder.Name == "Chunker" then
+		for _,v in pairs(folder:GetChildren()) do
+			if string.find(v.Name, "-") then
+				ColFolder = folder
+			end
+		end
+	end
+end
+
 local FarmTab = Window:CreateTab("Farm", "rewind")
 
 local AutoBlowOn = false
@@ -171,6 +182,9 @@ local AutoEgg = EggsTab:CreateToggle({
 	Callback = function(Value)
 		AutoEggOn = Value
 		if Value then
+			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.Decoration.Eggs.EggPlatform.Meshes/bgseggarea12_Circle.019")
+			wait(1)
+			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Generic.{SelectedEgg}`)
 			Rayfield:Notify({
 				Title = "Eggs Open",
 				Content = "To open eggs, you need to stand next to them",
@@ -218,22 +232,11 @@ local while1 = coroutine.create(function()
 end)
 coroutine.resume(while1)
 
-local ColFolder = workspace
-for _,folder in pairs(workspace.Rendered:GetChildren()) do
-	if folder.Name == "Chunker" then
-		for _,v in pairs(folder:GetChildren()) do
-			if string.find(v.Name, "-") then
-				ColFolder = folder
-			end
-		end
-	end
-end
-
 local while2 = coroutine.create(function()
 	while wait(0.1) do
 		if AutoFarmOn then
 			for _,v in pairs(ColFolder:GetChildren()) do
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer(v.Name)
+				game.ReplicatedStorage.Remotes.Pickups.CollectPickup:FireServer(v.Name)
 				v:Destroy()
 			end
 		end
