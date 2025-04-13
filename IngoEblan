@@ -197,8 +197,6 @@ local while1 = coroutine.create(function()
 		if AutoChestsOn then
 			for _,chest in pairs(workspace.Rendered.Chests:GetChildren()) do
 				if not workspace.Rendered.Generic:FindFirstChild(chest.Name):FindFirstChild("ChestRespawn") then
-					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Chests.{chest.Name}`)
-					wait(1)
 					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("ClaimChest", chest.Name, true)
 				end
 			end
