@@ -222,7 +222,7 @@ local ColFolder = workspace
 for _,folder in pairs(workspace.Rendered:GetChildren()) do
 	if folder.Name == "Chunker" then
 		for _,v in pairs(folder:GetChildren()) do
-			if string.find(v, "-") then
+			if string.find(v.Name, "-") then
 				ColFolder = folder
 			end
 		end
