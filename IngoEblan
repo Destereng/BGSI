@@ -205,7 +205,7 @@ local Button = RiftsTab:CreateButton({
 
 local while1 = coroutine.create(function()
 	while wait(10) do
-		Button.Section:Destroy()
+		print(Button)
 		if AutoChestsOn then
 			for _,chest in pairs(workspace.Rendered.Chests:GetChildren()) do
 				if not workspace.Rendered.Generic:FindFirstChild(chest.Name):FindFirstChild("ChestRespawn") then
