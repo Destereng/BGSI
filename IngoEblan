@@ -161,7 +161,7 @@ local AutoEgg = EggsTab:CreateToggle({
 	end,
 })
 
-task.spawn(function()
+local while1 = coroutine.create(function()
 	while wait(10) do
 		if AutoShopOn then
 			for i = 1, 3 do
@@ -181,6 +181,8 @@ task.spawn(function()
 		end
 	end
 end)
+coroutine.resume(while1)
+
 local ColFolder = workspace
 for _,folder in pairs(workspace.Rendered:GetChildren()) do
 	if folder.Name == "Chunker" then
@@ -191,7 +193,8 @@ for _,folder in pairs(workspace.Rendered:GetChildren()) do
 		end
 	end
 end
-task.spawn(function()
+
+local while2 = coroutine.create(function()
 	while wait(0.1) do
 		if AutoChestsOn and then
 			for _,chest in pairs(workspace.Rendered.Chests:GetChildren()) do
@@ -219,3 +222,4 @@ task.spawn(function()
 		end
 	end
 end)
+coroutine.resume(while2)
