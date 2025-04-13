@@ -194,7 +194,7 @@ local AutoEgg = EggsTab:CreateToggle({
 })
 
 local RiftsTab = Window:CreateTab("Rifts", "rewind")
-local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and teleport to them")
+local RiftText = RiftsTab:CreateSection("ВААААААААААААААААНННННННННННННННЯЯЯЯЯЯЯЯЯЯЯЯЯ ЕБЛАААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААНННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННННН Allows you to view all rifts and teleport to them")
 
 local Button = RiftsTab:CreateButton({
    Name = "Удаляемая кнопка",
@@ -202,11 +202,6 @@ local Button = RiftsTab:CreateButton({
       
    end,
 })
-
-Button.Section.TextBlabel.Text = "Test"
-Button.Callback = function()
-	print("Work!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-end
 
 local while1 = coroutine.create(function()
 	while wait(10) do
