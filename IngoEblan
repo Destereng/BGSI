@@ -56,6 +56,16 @@ local AutoSell = FarmTab:CreateToggle({
 	end,
 })
 
+local AutoFarmOn = false
+local AutoFarm = FarmTab:CreateToggle({
+	Name = "Auto Сollect",
+	Value = false,
+	Flag = "Toggle100",
+	Callback = function(Value)
+		AutoFarmOn = Value
+	end,
+})
+
 local ItemsTab = Window:CreateTab("Items", "rewind")
 
 local AutoDoggyOn = false
@@ -171,7 +181,16 @@ task.spawn(function()
 		end
 	end
 end)
-
+local ColFolder = workspace
+for _,folder in pairs(workspace.Rendered:GetChildren()) do
+	if folder.Name == "Chunker" then
+		for _,v in pairs(folder:GetChildren()) do
+			if string.find(v, "-") then
+				ColFolder = folder
+			end
+		end
+	end
+end
 task.spawn(function()
 	while wait(0.1) do
 		if AutoChestsOn and then
@@ -181,6 +200,12 @@ task.spawn(function()
 					wait(1)
 					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("ClaimChest", chest.Name, true)
 				end
+			end
+		end
+		if AutoFarmOn then
+			for _,v in pairs(ColFolder:GetChildren()) do
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer(v.Name)
+				v:Destroy()
 			end
 		end
 		if AutoBlowOn then
