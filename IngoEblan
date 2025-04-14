@@ -321,7 +321,7 @@ local while3 = coroutine.create(function()
 			if string.find(rift.Name, "egg") then
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 			else
-				rifts[i]:Set(`{betterName} (rift.Display.SurfaceGui.Timer.Text)`)
+				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
 		end
 	end
