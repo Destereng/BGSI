@@ -1,25 +1,26 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
-local HttpService = game:GetService("HttpService")
 local Player = game.Players.LocalPlayer
 local webhook = "https://discord.com/api/webhooks/1347544144851243088/EqmVZ8MJ9a1lxzfv0-MW28AlgKSeAxT9tYkzHbTfRLvSHKaVYYOHi0KIcLRNtUOz-A7V" --Мне лень шифровать скрипт, так что не юзайте этот вебхук пж
 
-local responce = syn.request({
-	Url = webhook,
-	Method = "POST",
-	Headers = {
-		["Content-Type"] = "application/json"
-	},
-	Body = HttpService:JSONEncode({
-		["content"] = "zaebal"
-	})
-})
+function SendMessage(url, message)
+    local http = game:GetService("HttpService")
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local data = {
+        ["content"] = message
+    }
+    local body = http:JSONEncode(data)
+    local response = request({
+        Url = url,
+        Method = "POST",
+        Headers = headers,
+        Body = body
+    })
+end
 
-HttpService:PostAsync(webhook,
-	HttpService:JSONEncode({
-		content = Player.Name
-	})
-)
+SendMessage(webhook, "zaebaalsa")
 
 local Window = Rayfield:CreateWindow({
 	Name = "BGSI Cheat",
