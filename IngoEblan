@@ -1,6 +1,6 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
-local Info = TweenInfo.new(2)
+local Info = TweenInfo.new(10)
 local Player = game.Players.LocalPlayer
 
 local Window = Rayfield:CreateWindow({
