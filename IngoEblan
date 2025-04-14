@@ -209,7 +209,9 @@ local AutoEgg = EggsTab:CreateToggle({
 		if Value then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.PortalSpawn")
 			task.wait(0.5)
-			TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(6), {CFrame = Workspace.Rendered.Generic:WaitForChild("Infinity Egg").Hitbox.CFrame}):Play()
+			TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(4), {CFrame = Workspace.Rendered.Generic:WaitForChild("Infinity Egg").Hitbox.CFrame + Vector3.new(0, 20, 0)}):Play()
+			task.wait(4.5)
+			TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(3), {CFrame = Workspace.Rendered.Generic:WaitForChild(SelectedEgg).Hitbox.CFrame}):Play()
 			Rayfield:Notify({
 				Title = "Eggs Open",
 				Content = "To open eggs, you need to stand next to them",
@@ -417,7 +419,6 @@ local while2 = coroutine.create(function()
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("SellBubble")
 		end
 		if AutoEggOn then
-			Player.Character.HumanoidRootPart.CFrame = workspace.Rendered.Generic:WaitForChild(SelectedEgg).Hitbox.CFrame
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
 		end
 	end
