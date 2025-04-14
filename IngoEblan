@@ -216,7 +216,7 @@ local Speed = RiftsTab:CreateSlider({
 local function teleport(id)
 	local closestIslandMag = 9999999
 	local closestIslandName = ""
-	for _,island in pairs(workspace.Worlds.The Overworld..Islands:GetChildren()) do
+	for _,island in pairs(workspace.Worlds:WaitForChild("The Overworld").Islands:GetChildren()) do
 		local mag = (riftsPath[id].Display.Position - island.Island.UnlockHitbox.Position).Magnitude
 		if mag < closestIslandMag then
 			closestIslandMag = mag
