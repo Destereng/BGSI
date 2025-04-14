@@ -293,10 +293,13 @@ local while3 = coroutine.create(function()
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 			table.insert(riftsPath, rift)
+			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
+  				return string.upper(first) .. rest
+			end)
 			if string.find(rift.Name, "egg") then
-				rifts[i]:Set(`{rift.Name} () ()`)
+				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) (rift.Display.SurfaceGui.Icon.Luck.Text)`)
 			else
-				rifts[i]:Set(`{rift.Name} ()`)
+				rifts[i]:Set(`{betterName} (rift.Display.SurfaceGui.Timer.Text)`)
 			end
 		end
 	end
