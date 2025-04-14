@@ -201,6 +201,11 @@ local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and telepo
 
 local riftsPath = {}
 
+local function teleport(id)
+	riftsPath[id].Display.Position
+	TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[id].Display.CFrame}):Play()
+end
+
 local rift1 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
@@ -288,7 +293,11 @@ local while3 = coroutine.create(function()
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 			table.insert(riftsPath, rift)
-			rifts[i]:Set(rift.Name)
+			if string.find(rift.Name, "egg") then
+				rifts[i]:Set(`{rift.Name} () ()`)
+			else
+				rifts[i]:Set(`{rift.Name} ()`)
+			end
 		end
 	end
 end)
