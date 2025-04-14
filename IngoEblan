@@ -209,9 +209,7 @@ local AutoEgg = EggsTab:CreateToggle({
 		if Value then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.PortalSpawn")
 			task.wait(0.5)
-			TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(3), {CFrame = Workspace.Rendered.Generic:WaitForChild("Infinity Egg").Hitbox.CFrame}):Play()
-			task.wait(3)
-			TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(2), {CFrame = Workspace.Rendered.Generic:WaitForChild(SelectedEgg).Hitbox.CFrame}):Play()
+			TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(6), {CFrame = Workspace.Rendered.Generic:WaitForChild("Infinity Egg").Hitbox.CFrame}):Play()
 			Rayfield:Notify({
 				Title = "Eggs Open",
 				Content = "To open eggs, you need to stand next to them",
@@ -261,12 +259,9 @@ local function teleport(id)
 		end
 	end
 	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overworld.Islands.{closestIslandName}.Island.Portal.Spawn`)
-	task.wait(0.5)
-	Player.Character.Humanoid.JumpPower = 500
-	Player.Character.Humanoid.Jump = true
-	task.wait(1.2)
+	task.wait(0.2)
 	if AutoSpeedOn then
-		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/200), {CFrame = riftsPath[id].Display.CFrame}):Play()
+		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/150), {CFrame = riftsPath[id].Display.CFrame}):Play()
 	else
 		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(CurrentSpeed), {CFrame = riftsPath[id].Display.CFrame}):Play()
 	end
@@ -422,6 +417,7 @@ local while2 = coroutine.create(function()
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("SellBubble")
 		end
 		if AutoEggOn then
+			Player.Character.HumanoidRootPart.CFrame = workspace.Rendered.Generic:WaitForChild(SelectedEgg).Hitbox.CFrame
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
 		end
 	end
