@@ -207,6 +207,11 @@ local AutoEgg = EggsTab:CreateToggle({
 	Callback = function(Value)
 		AutoEggOn = Value
 		if Value then
+			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.PortalSpawn")
+			task.wait(0.5)
+			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Rendered.Generic.Infinity Egg.Hitbox")
+			task.wait(0.5)
+			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Generic.{SelectedEgg}.Hitbox`)
 			Rayfield:Notify({
 				Title = "Eggs Open",
 				Content = "To open eggs, you need to stand next to them",
@@ -261,7 +266,7 @@ local function teleport(id)
 	Player.Character.Humanoid.Jump = true
 	task.wait(1.2)
 	if AutoSpeedOn then
-		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/500), {CFrame = riftsPath[id].Display.CFrame}):Play()
+		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/200), {CFrame = riftsPath[id].Display.CFrame}):Play()
 	else
 		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(CurrentSpeed), {CFrame = riftsPath[id].Display.CFrame}):Play()
 	end
