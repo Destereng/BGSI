@@ -235,10 +235,10 @@ local Speed = RiftsTab:CreateSlider({
 	end,
 })
 
-local AutoSpeedOn = true
+local AutoSpeedOn = false
 local AutoSpeed = RiftsTab:CreateToggle({
 	Name = "Automatically calculate speed",
-	Value = true,
+	Value = false,
 	Flag = "Toggle152",
 	Callback = function(Value)
 		AutoSpeedOn = Value
@@ -260,13 +260,10 @@ local function teleport(id)
 	if AutoSpeedOn then
 		Player.Character.Humanoid.Jump = true
 		task.wait(1)
-		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/250), {CFrame = riftsPath[id].Display.CFrame}):Play()
-		task.wait(closestIslandMag/250)
-		for i = 1, 10 do
-			Player.Character.HumanoidRootPart.CFrame = riftsPath[id].Display.CFrame
-			task.wait(0.1)
-		end
+		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/500), {CFrame = riftsPath[id].Display.CFrame}):Play()
 	else
+		Player.Character.Humanoid.Jump = true
+		task.wait(1)
 		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(CurrentSpeed), {CFrame = riftsPath[id].Display.CFrame}):Play()
 	end
 end
