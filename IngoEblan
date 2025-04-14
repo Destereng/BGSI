@@ -200,7 +200,7 @@ local rift1Name = ""
 local rift1 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift1Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift1Name}.Display`)
    end,
 })
 
@@ -208,7 +208,7 @@ local rift2Name = ""
 local rift2 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift2Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift2Name}.Display`)
    end,
 })
 
@@ -216,7 +216,7 @@ local rift3Name = ""
 local rift3 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift3Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift3Name}.Display`)
    end,
 })
 
@@ -224,7 +224,7 @@ local rift4Name = ""
 local rift4 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift4Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift4Name}.Display`)
    end,
 })
 
@@ -232,7 +232,7 @@ local rift5Name = ""
 local rift5 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift5Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift5Name}.Display`)
    end,
 })
 
@@ -240,7 +240,7 @@ local rift6Name = ""
 local rift6 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift6Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift6Name}.Display`)
    end,
 })
 
@@ -248,7 +248,7 @@ local rift7Name = ""
 local rift7 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift7Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift7Name}.Display`)
    end,
 })
 
@@ -256,7 +256,7 @@ local rift8Name = ""
 local rift8 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift8Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift8Name}.Display`)
    end,
 })
 
@@ -264,7 +264,7 @@ local rift9Name = ""
 local rift9 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift9Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift9Name}.Display`)
    end,
 })
 
@@ -272,12 +272,20 @@ local rift10Name = ""
 local rift10 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift10Name}`)
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift10Name}.Display`)
    end,
 })
 
-local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, rift10}
-local riftsName = {rift1Name, rift2Name, rift3Name, rift4Name, rift5Name, rift6Name, rift7Name, rift8Name, rift9Name, rift10Name}
+local rift11Name = ""
+local rift11 = RiftsTab:CreateButton({
+   Name = "",
+   Callback = function()
+      game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Rendered.Rifts.{rift11Name}.Display`)
+   end,
+})
+
+local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, rift10, rift11}
+local riftsName = {rift1Name, rift2Name, rift3Name, rift4Name, rift5Name, rift6Name, rift7Name, rift8Name, rift9Name, rift10Name, rift11Name}
 
 local while3 = coroutine.create(function()
 	while task.wait(1) do
