@@ -200,13 +200,13 @@ local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and telepo
 
 local riftsPath = {}
 
-local CurrentSpeed = 5
+local CurrentSpeed = 10
 local Speed = RiftsTab:CreateSlider({
 	Name = "How many seconds will it take you to get to the rift?",
 	Range = {1, 15},
 	Increment = 1,
 	Suffix = "Seconds",
-	CurrentValue = 5,
+	CurrentValue = 10,
 	Flag = "Slider1",
 	Callback = function(CurrentValue)
 		CurrentSpeed = CurrentValue
@@ -319,7 +319,7 @@ local while3 = coroutine.create(function()
   				return string.upper(first) .. rest
 			end)
 			if string.find(rift.Name, "egg") then
-				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) (rift.Display.SurfaceGui.Icon.Luck.Text)`)
+				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 			else
 				rifts[i]:Set(`{betterName} (rift.Display.SurfaceGui.Timer.Text)`)
 			end
