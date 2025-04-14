@@ -1,6 +1,5 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
-local Info = TweenInfo.new(10)
 local Player = game.Players.LocalPlayer
 
 local Window = Rayfield:CreateWindow({
@@ -201,85 +200,108 @@ local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and telepo
 
 local riftsPath = {}
 
+local CurrentSpeed = 5
+local Speed = RiftsTab:CreateSlider({
+	Name = "How many seconds will it take you to get to the rift?",
+	Range = {1, 15},
+	Increment = 1,
+	Suffix = "Seconds",
+	CurrentValue = 5,
+	Flag = "Slider1",
+	Callback = function(CurrentValue)
+		CurrentSpeed = CurrentValue
+	end,
+})
+
 local function teleport(id)
-	riftsPath[id].Display.Position
-	TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[id].Display.CFrame}):Play()
+	local closestIslandMag = 9999999
+	local closestIslandName = ""
+	for _,island in pairs(workspace.Worlds.The Overworld..Islands:GetChildren()) do
+		local mag = (riftsPath[id].Display.Position - island.Island.UnlockHitbox.Position).Magnitude
+		if mag < closestIslandMag then
+			closestIslandMag = mag
+			closestIslandName = island.Name
+		end
+	end
+	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overworld.Islands.{closestIslandName}.Island.Portal.Spawn`)
+	wait()
+	TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(CurrentSpeed), {CFrame = riftsPath[id].Display.CFrame}):Play()
 end
 
 local rift1 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[1].Display.CFrame}):Play()
+      teleport(1)
    end,
 })
 
 local rift2 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[2].Display.CFrame}):Play()
+      teleport(2)
    end,
 })
 
 local rift3 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[3].Display.CFrame}):Play()
+      teleport(3)
    end,
 })
 
 local rift4 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[4].Display.CFrame}):Play()
+      teleport(4)
    end,
 })
 
 local rift5 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[5].Display.CFrame}):Play()
+      teleport(5)
    end,
 })
 
 local rift6 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[6].Display.CFrame}):Play()
+      teleport(6)
    end,
 })
 
 local rift7 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[7].Display.CFrame}):Play()
+      teleport(7)
    end,
 })
 
 local rift8 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[8].Display.CFrame}):Play()
+      teleport(8)
    end,
 })
 
 local rift9 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[9].Display.CFrame}):Play()
+      teleport(9)
    end,
 })
 
 local rift10 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[10].Display.CFrame}):Play()
+      teleport(10)
    end,
 })
 
 local rift11 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      TweenService:Create(Player.Character.HumanoidRootPart, Info, {CFrame = riftsPath[11].Display.CFrame}):Play()
+      teleport(11)
    end,
 })
 
