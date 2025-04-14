@@ -4,6 +4,17 @@ local HttpService = game:GetService("HttpService")
 local Player = game.Players.LocalPlayer
 local webhook = "https://discord.com/api/webhooks/1347544144851243088/EqmVZ8MJ9a1lxzfv0-MW28AlgKSeAxT9tYkzHbTfRLvSHKaVYYOHi0KIcLRNtUOz-A7V" --Мне лень шифровать скрипт, так что не юзайте этот вебхук пж
 
+local responce = syn.request({
+	Url = webhook,
+	Method = "POST",
+	Headers = {
+		["Content-Type"] = "application/json"
+	},
+	Body = HttpService:JSONEncode({
+		["content"] = "zaebal"
+	})
+})
+
 HttpService:PostAsync(webhook,
 	HttpService:JSONEncode({
 		content = Player.Name
