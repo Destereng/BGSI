@@ -257,12 +257,14 @@ local function teleport(id)
 	inProcess = true
         local success, errorMessage = pcall(function()
 		path:ComputeAsync(Player.Character.HumanoidRootPart.Position, riftsPath[id].Display.Position)
+		print("Ok1")
 	end)
 	if success and path.Status == Enum.PathStatus.Success then
 		for _, waypoint in path:GetWaypoints() do
 			if waypoint.Action == Enum.PathWaypointAction.Jump then
 				Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 			end
+			print(waypoint.Position)
 			Humanoid:MoveTo(waypoint.Position)
 			Humanoid.MoveToFinished:Wait()
 		end
