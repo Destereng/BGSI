@@ -238,8 +238,10 @@ local function teleport(id)
 		end
 	end
 	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overworld.Islands.{closestIslandName}.Island.Portal.Spawn`)
-	task.wait(1)
-        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/100), {CFrame = riftsPath[id].Display.CFrame}):Play()
+	task.wait(0.5)
+        Player.Character.Humanoid.Jump = true
+        task.waiy(0.5)
+        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(10), {CFrame = riftsPath[id].Display.CFrame}):Play()
 end
 
 local Rift2Text = RiftsTab:CreateSection("Я не смог сделать телепорт, который работал бы нормально, по этому теперь он просто будет ходить.")
