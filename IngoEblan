@@ -2,18 +2,6 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
 local Player = game.Players.LocalPlayer
 
-local Workspace = game:GetService("Workspace")
-local PathfindingService = game:GetService("PathfindingService")
-
-local path = PathfindingService:CreatePath({
-	AgentRadius = 2,
-	AgentHeight = 5,
-	AgentCanJump = true,
-	AgentCanClimb = true,
-	WaypointSpacing = 100,
-	Costs = {},
-})
-
 function SendMessage(message)
     local http = game:GetService("HttpService")
     local headers = {
@@ -239,9 +227,8 @@ local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and telepo
 
 local riftsPath = {}
 
-local inProcess = false
 local function teleport(id)
-	local closestIslandMag = 9999999
+	local closestIslandMag = 99999999
 	local closestIslandName = ""
 	for _,island in pairs(workspace.Worlds:WaitForChild("The Overworld").Islands:GetChildren()) do
 		local mag = (riftsPath[id].Display.Position - island.Island.UnlockHitbox.Position).Magnitude
@@ -251,31 +238,8 @@ local function teleport(id)
 		end
 	end
 	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overworld.Islands.{closestIslandName}.Island.Portal.Spawn`)
-	local Humanoid = Player.Character.Humanoid
-	local oldSpeed = Humanoid.WalkSpeed
-	local oldJp = Humanoid.JumpPower
 	task.wait(1)
-	inProcess = true
-        local success, errorMessage = pcall(function()
-		path:ComputeAsync(Player.Character.HumanoidRootPart.Position, riftsPath[id].Display.Position)
-		print("Ok1")
-	end)
-	if success and path.Status == Enum.PathStatus.Success then
-		for _, waypoint in path:GetWaypoints() do
-			if waypoint.Action == Enum.PathWaypointAction.Jump then
-				Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-			end
-			print(waypoint.Position)
-			Humanoid:MoveTo(waypoint.Position)
-			Humanoid.MoveToFinished:Wait()
-		end
-	else
-		print(errorMessage)
-	end
-	inProcess = false
-	task.wait(0.1)
-	Humanoid.WalkSpeed = oldSpeed
-	Humanoid.JumpPower = oldJp
+        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/100), {CFrame = riftsPath[id].Display.CFrame}):Play()
 end
 
 local Rift2Text = RiftsTab:CreateSection("Я не смог сделать телепорт, который работал бы нормально, по этому теперь он просто будет ходить.")
@@ -379,17 +343,6 @@ local while3 = coroutine.create(function()
 	end
 end)
 coroutine.resume(while3)
-
-local while4 = coroutine.create(function()
-	while task.wait() do
-		if inProcess then
-			local Humanoid = Player.Character.Humanoid
-			Humanoid.WalkSpeed = 40
-			Humanoid.JumpPower = 50
-		end
-	end
-end)
-coroutine.resume(while4)
 
 local while1 = coroutine.create(function()
 	while task.wait(10) do
