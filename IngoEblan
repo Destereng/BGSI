@@ -10,7 +10,7 @@ local path = PathfindingService:CreatePath({
 	AgentHeight = 5,
 	AgentCanJump = true,
 	AgentCanClimb = true,
-	--WaypointSpacing = 100,
+	WaypointSpacing = 50,
 	Costs = {},
 })
 
