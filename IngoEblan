@@ -222,6 +222,24 @@ local AutoEgg = EggsTab:CreateToggle({
 	end,
 })
 
+local EnchTab = Window:CreateTab("Enchant", "rewind")
+local EnchText = EnchTab:CreateSection("Tab for auto enchant pets.")
+
+local SelectEnchants = EnchTab:CreateDropdown({
+   Name = "Select Enchants",
+   Options = {"Team Up I","Team Up II"},
+   CurrentOption = {""},
+   MultipleOptions = true,
+   Flag = "Dropdown69",
+   Callback = function(Options, CurrentOption)
+   print(Option)
+print(CurrentOption)
+for _,i in pairs(CurrentOption) do
+print(i)
+end
+   end,
+})
+
 local RiftsTab = Window:CreateTab("Rifts", "rewind")
 local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and teleport to them")
 
