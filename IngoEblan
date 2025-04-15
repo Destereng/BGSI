@@ -238,6 +238,7 @@ local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and telepo
 
 local riftsPath = {}
 
+local inProcess = false
 local function teleport(id)
 	local closestIslandMag = 9999999
 	local closestIslandName = ""
@@ -252,11 +253,8 @@ local function teleport(id)
 	local Humanoid = Player.Character.Humanoid
 	local oldSpeed = Humanoid.WalkSpeed
 	local oldJp = Humanoid.JumpPower
-	Humanoid.WalkSpeed = 40
-	Humanoid.JumpPower = 500
 	task.wait(1)
-	Humanoid.WalkSpeed = 40
-	Humanoid.JumpPower = 500
+	inProcess = true
         local success, errorMessage = pcall(function()
 		path:ComputeAsync(Player.Character.HumanoidRootPart.Position, riftsPath[id].Display.Position)
 	end)
@@ -266,11 +264,11 @@ local function teleport(id)
 				Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 			end
 			Humanoid:MoveTo(waypoint.Position)
-			Humanoid.WalkSpeed = 40
-			Humanoid.JumpPower = 500
 			Humanoid.MoveToFinished:Wait()
 		end
 	end
+	inProcess = false
+	task.wait(0.1)
 	Humanoid.WalkSpeed = oldSpeed
 	Humanoid.JumpPower = oldJp
 end
@@ -376,6 +374,17 @@ local while3 = coroutine.create(function()
 	end
 end)
 coroutine.resume(while3)
+
+local while4 = coroutine.create(function()
+	while task.wait() do
+		if inProcess then
+			local Humanoid = Player.Character.Humanoid
+			Humanoid.WalkSpeed = 40
+			Humanoid.JumpPower = 500
+		end
+	end
+end)
+coroutine.resume(while4)
 
 local while1 = coroutine.create(function()
 	while task.wait(10) do
