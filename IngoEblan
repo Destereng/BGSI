@@ -242,22 +242,12 @@ local inProcess = false
 local function teleport(id)
 	local closestIslandMag = 9999999
 	local closestIslandName = ""
-	local secClosestIslandMag = 9999999
-	local secClosestIslandName = ""
-	local SelectedIsland = ""
 	for _,island in pairs(workspace.Worlds:WaitForChild("The Overworld").Islands:GetChildren()) do
 		local mag = (riftsPath[id].Display.Position - island.Island.UnlockHitbox.Position).Magnitude
-		if mag > closestIslandMag and mag < secClosestIslandMag then
-			secClosestIslandMag = mag
-			secClosestIslandName = island.Name
-		end
-		if mag < closestIslandMag then
+		if mag < closestIslandMag and island.Island.UnlockHitbox.Position.Y > riftsPath[id].Display.Position.Y then
 			closestIslandMag = mag
 			closestIslandName = island.Name
 		end
-	end
-	if workspace.Worlds:WaitForChild("The Overworld").Islands:WaitForChild(closestIslandName).Island.UnlockHitbox.Position.Y < workspace.Worlds:WaitForChild("The Overworld").Islands:WaitForChild(secClosestIslandName).Island.UnlockHitbox.Position.Y then
-		closestIslandName = secClosestIslandName
 	end
 	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overworld.Islands.{closestIslandName}.Island.Portal.Spawn`)
 	local Humanoid = Player.Character.Humanoid
