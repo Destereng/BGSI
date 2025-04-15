@@ -255,6 +255,7 @@ local function teleport(id)
 	Humanoid.WalkSpeed = 40
 	Humanoid.JumpPower = 500
 	task.wait(1)
+	Humanoid.WalkSpeed = 40
         local success, errorMessage = pcall(function()
 		path:ComputeAsync(Player.Character.HumanoidRootPart.Position, riftsPath[id].Display.Position)
 	end)
@@ -264,6 +265,7 @@ local function teleport(id)
 				Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 			end
 			Humanoid:MoveTo(waypoint.Position)
+			Humanoid.WalkSpeed = 40
 			Humanoid.MoveToFinished:Wait()
 		end
 	end
