@@ -2,6 +2,17 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
 local Player = game.Players.LocalPlayer
 
+local Workspace = game:GetService("Workspace")
+local PathfindingService = game:GetService("PathfindingService")
+
+local path = PathfindingService:CreatePath({
+	AgentRadius = 2,
+	AgentHeight = 5,
+	AgentCanJump = true,
+	AgentCanClimb,
+	Costs = {},
+})
+
 function SendMessage(message)
     local http = game:GetService("HttpService")
     local headers = {
@@ -227,29 +238,6 @@ local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and telepo
 
 local riftsPath = {}
 
-local CurrentSpeed = 10
-local Speed = RiftsTab:CreateSlider({
-	Name = "How many seconds will it take you to get to the rift?",
-	Range = {1, 15},
-	Increment = 1,
-	Suffix = "Seconds",
-	CurrentValue = 10,
-	Flag = "Slider1",
-	Callback = function(CurrentValue)
-		CurrentSpeed = CurrentValue
-	end,
-})
-
-local AutoSpeedOn = false
-local AutoSpeed = RiftsTab:CreateToggle({
-	Name = "Automatically calculate speed",
-	Value = false,
-	Flag = "Toggle152",
-	Callback = function(Value)
-		AutoSpeedOn = Value
-	end,
-})
-
 local function teleport(id)
 	local closestIslandMag = 9999999
 	local closestIslandName = ""
@@ -261,18 +249,29 @@ local function teleport(id)
 		end
 	end
 	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overworld.Islands.{closestIslandName}.Island.Portal.Spawn`)
-	task.wait(0.2)
-	if AutoSpeedOn then
-                local oldJp = Player.Character.Humanoid.JumpPower
-                Player.Character.Humanoid.JumpPower = 500
-                Player.Character.Humanoid.Jump = true
-                task.wait(1.5)
-		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(closestIslandMag/100), {CFrame = riftsPath[id].Display.CFrame}):Play()
-                Player.Character.Humanoid.JumpPower = oldJp
-	else
-		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(CurrentSpeed), {CFrame = riftsPath[id].Display.CFrame}):Play()
+	local Humanoid = Player.Character.Humanoid
+	local oldSpeed = Humanoid.Speed
+	local oldJp = Humanoid.JumpPower
+	Humanoid.Speed = 64
+	Humanoid.JunpPower = 500
+	task.wait(1)
+        local success, errorMessage = pcall(function()
+		path:ComputeAsync(Player.Character.HumanoidRootPart.Position, riftsPath[id].Display.Position)
+	end)
+	if success and path.Status == Enum.PathStatus.Success then
+		for _, waypoint in path:GetWaypoints() do
+			if waypoint.Action == Enum.PathWaypointAction.Jump then
+				Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+			end
+			Humanoid:MoveTo(waypoint.Position)
+			Humanoid.MoveToFinished:Wait()
+		end
 	end
+	Humanoid.Speed = oloSpeed
+	Humanoid.JunpPower = oldJp
 end
+
+local Rift2Text = RiftsTab:CreateSection("Я не смог сделать телепорт, который работал бы нормально, по этому теперь он просто будет ходить.")
 
 local rift1 = RiftsTab:CreateButton({
    Name = "",
