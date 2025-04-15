@@ -231,10 +231,8 @@ local SelectEnchants = EnchTab:CreateDropdown({
    CurrentOption = {""},
    MultipleOptions = true,
    Flag = "Dropdown69",
-   Callback = function(Options, CurrentOption)
-   print(Option)
-print(CurrentOption)
-for _,i in pairs(CurrentOption) do
+   Callback = function(Options)
+for _,i in pairs(Options) do
 print(i)
 end
    end,
