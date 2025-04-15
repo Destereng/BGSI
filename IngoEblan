@@ -240,7 +240,7 @@ local function teleport(id)
 	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overworld.Islands.{closestIslandName}.Island.Portal.Spawn`)
 	task.wait(0.5)
         Player.Character.Humanoid.Jump = true
-        task.waiy(0.5)
+        task.wait(0.5)
         TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(10), {CFrame = riftsPath[id].Display.CFrame}):Play()
 end
 
