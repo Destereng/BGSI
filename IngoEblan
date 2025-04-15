@@ -230,7 +230,9 @@ local SelectedPet = ""
 local SelectedEnchants = {}
 local SelectEnchants = EnchTab:CreateDropdown({
    Name = "Select Enchants",
-   Options = {"Team Up I","Team Up II", "Team Up III", "Team Up IV", "Team Up V'},
+   Options = {"Team Up I", "Team Up II", "Team Up III", "Team Up IV", "Team Up V", 
+"Gleaming I", "Gleaming II", "Gleaming III", "Gleaming IV", "Gleaming V", 
+"Bubbler I", "Gleaming II", "Gleaming III", "Gleaming IV", "Gleaming V"},
    CurrentOption = {},
    MultipleOptions = true,
    Flag = "Dropdown69",
@@ -410,10 +412,21 @@ coroutine.resume(while1)
 
 local while2 = coroutine.create(function()
 	while task.wait(0.1) do
-                
-                SelectedPet = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Main.ScrollingFrame.Team.Main.List["dcbbf97f-1e80-48af-87bd-283ba42aa90e-team-0"]
+for _,pet in pairs(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Main.ScrollingFrame.Team.Main.List:GetChildren()) do
+if string.find(pet.Name, "-") then
+SelectedPet = pet.Name
+end
+end
                 if AutoEnchOn then
-                   if 
+local needEnch = true
+for _,ench in pairs(SelectedEnchants) do
+if string.find(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Details.Enchants.Enchant1.Title.Text, ench) then
+needEnch = false
+end
+end 
+if needEnch then
+game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Function"):InvokeServer("RerollEnchants", SelectedPet)
+end
                 end
 		if AutoFarmOn then
 			for _,v in pairs(ColFolder:GetChildren()) do
