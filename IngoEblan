@@ -244,7 +244,7 @@ local function teleport(id)
         TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(10), {CFrame = riftsPath[id].Display.CFrame}):Play()
 end
 
-local Rift2Text = RiftsTab:CreateSection("Я не смог сделать телепорт, который работал бы нормально, по этому теперь он просто будет ходить.")
+local Rift2Text = RiftsTab:CreateSection("Still in development")
 
 local rift1 = RiftsTab:CreateButton({
    Name = "",
