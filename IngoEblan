@@ -225,17 +225,28 @@ local AutoEgg = EggsTab:CreateToggle({
 local EnchTab = Window:CreateTab("Enchant", "rewind")
 local EnchText = EnchTab:CreateSection("Tab for auto enchant pets.")
 
+local SelectedPet = ""
+
+local SelectedEnchants = {}
 local SelectEnchants = EnchTab:CreateDropdown({
    Name = "Select Enchants",
-   Options = {"Team Up I","Team Up II"},
-   CurrentOption = {""},
+   Options = {"Team Up I","Team Up II", "Team Up III", "Team Up IV", "Team Up V'},
+   CurrentOption = {},
    MultipleOptions = true,
    Flag = "Dropdown69",
    Callback = function(Options)
-for _,i in pairs(Options) do
-print(i)
-end
+      SelectedEnchants = Options
    end,
+})
+
+local AutoEnchOn = false
+local AutoEnch = EnchTab:CreateToggle({
+	Name = "Start Enchanting",
+	Value = false,
+	Flag = "Toggle666",
+	Callback = function(Value)
+		AutoEnchOn = Value
+	end,
 })
 
 local RiftsTab = Window:CreateTab("Rifts", "rewind")
@@ -253,7 +264,7 @@ local function teleport(id)
 			closestIslandName = island.Name
 		end
 	end
-	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overworld.Islands.{closestIslandName}.Island.Portal.Spawn`)
+	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overwos.{closestIslandName}.Island.Portal.Spawn`)
 	task.wait(0.5)
         Player.Character.Humanoid.Jump = true
         task.wait(0.5)
@@ -399,6 +410,11 @@ coroutine.resume(while1)
 
 local while2 = coroutine.create(function()
 	while task.wait(0.1) do
+                
+                SelectedPet = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Main.ScrollingFrame.Team.Main.List["dcbbf97f-1e80-48af-87bd-283ba42aa90e-team-0"]
+                if AutoEnchOn then
+                   if 
+                end
 		if AutoFarmOn then
 			for _,v in pairs(ColFolder:GetChildren()) do
 				game.ReplicatedStorage.Remotes.Pickups.CollectPickup:FireServer(v.Name)
