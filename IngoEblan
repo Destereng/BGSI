@@ -424,24 +424,24 @@ coroutine.resume(while1)
 
 local while2 = coroutine.create(function()
 	while task.wait(0.1) do
-for _,pet in pairs(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Main.ScrollingFrame.Team.Main.List:GetChildren()) do
-if string.find(pet.Name, "-") then
-SelectedPet = string.match(pet.Name, "^(.-)%-team%-0$")
-print(SelectedPet)
-end
-end
+		for _,pet in pairs(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Main.ScrollingFrame.Team.Main.List:GetChildren()) do
+			if string.find(pet.Name, "-") then
+				SelectedPet = string.match(pet.Name, "^(.-)%-team%-0$")
+				print(SelectedPet)
+			end
+		end
+		local needEnch = true
                 if AutoEnchOn then
-local needEnch = true
-for _,ench in pairs(SelectedEnchants) do
-if string.find(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Details.Enchants.Enchant1.Title.Text, ench) then
-needEnch = false
-end
-end 
-if needEnch and not UseRerollOn then
-game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Function"):InvokeServer("RerollEnchants", SelectedPet)
-else
-game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("RerollEnchant", SelectedPet, 1)
-end
+			for _,ench in pairs(SelectedEnchants) do
+				if string.find(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Details.Enchants.Enchant1.Title.Text, ench) then
+				needEnch = false
+			end 
+			if needEnch and not UseRerollOn then
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Function:InvokeServer("RerollEnchants", SelectedPet)
+			end
+			if needEnch and UseRerollOn then
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("RerollEnchant", SelectedPet, 1)
+			end
                 end
 		if AutoFarmOn then
 			for _,v in pairs(ColFolder:GetChildren()) do
