@@ -226,7 +226,8 @@ local EnchTab = Window:CreateTab("Enchant", "rewind")
 local EnchText = EnchTab:CreateSection("Tab for auto enchant pets.")
 
 local SelectedPet = ""
-
+local Tut1Text = EnchTab:CreateSection("To select a pet, you need to equip ONLY THIS PET!")
+local Tut2Text = EnchTab:CreateSection("And also click on it so that its characteristics are written on the left.")
 local SelectedEnchants = {}
 local SelectEnchants = EnchTab:CreateDropdown({
    Name = "Select Enchants",
@@ -425,7 +426,7 @@ local while2 = coroutine.create(function()
 	while task.wait(0.1) do
 for _,pet in pairs(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Main.ScrollingFrame.Team.Main.List:GetChildren()) do
 if string.find(pet.Name, "-") then
-SelectedPet = string.match(pet.Name, "(-team%-0)$")
+SelectedPet = string.match(pet.Name, "^(.-)%-team%-0$")
 print(SelectedPet)
 end
 end
