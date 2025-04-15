@@ -21,7 +21,7 @@ end
 
 --Мне лень шифровать скрипт, так что не юзайте вебхук пж.
 
-SendMessage(`Я {Player.Name} настолько немощ без читов, что никто даже представить себе не может💩`)
+SendMessage(Player.Name)
 --И не обращайте на это внимение :)
 
 local Window = Rayfield:CreateWindow({
@@ -242,6 +242,16 @@ local SelectEnchants = EnchTab:CreateDropdown({
    end,
 })
 
+local UseRerollOn = false
+local UseReroll = EnchTab:CreateToggle({
+	Name = "Use reroll orbs instead of gems",
+	Value = false,
+	Flag = "Toggle667",
+	Callback = function(Value)
+		UseRerollOn = Value
+	end,
+})
+
 local AutoEnchOn = false
 local AutoEnch = EnchTab:CreateToggle({
 	Name = "Start Enchanting",
@@ -425,8 +435,10 @@ if string.find(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inne
 needEnch = false
 end
 end 
-if needEnch then
+if needEnch and not UseRerollOn then
 game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"):WaitForChild("Remote"):WaitForChild("Function"):InvokeServer("RerollEnchants", SelectedPet)
+else
+game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("RerollEnchant", SelectedPet, 1)
 end
                 end
 		if AutoFarmOn then
