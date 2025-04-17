@@ -372,7 +372,7 @@ workspace.Rendered.Rifts.ChildAdded:Connect(function(rift)
 end)
 
 for _,mountain in pairs(workspace.Worlds:FindFirstChild("The Overworld").Decoration.Mountains:GetChildren()) do
-    for ,part in pairs(mountain:GetChildren()) do
+    for _,part in pairs(mountain:GetChildren()) do
         part.CanCollide = false
     end
 end
