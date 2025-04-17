@@ -407,7 +407,7 @@ local while3 = coroutine.create(function()
 			if AutoEggOn then
 				local mag = (Player.Character.HumanoidRootPart.Position - curPos).Magnitude
 				if mag > 10 then
-					teleport(riftForTeleport.Display.Position)
+					teleport(curPos)
 				end
 			end
 		end
