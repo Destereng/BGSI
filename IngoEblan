@@ -434,7 +434,8 @@ local while2 = coroutine.create(function()
                 if AutoEnchOn then
 			for _,ench in pairs(SelectedEnchants) do
 				if string.find(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Details.Enchants.Enchant1.Title.Text, ench) then
-				needEnch = false
+					needEnch = false
+				end
 			end 
 			if needEnch and not UseRerollOn then
 				game.ReplicatedStorage.Shared.Framework.Network.Remote.Function:InvokeServer("RerollEnchants", SelectedPet)
