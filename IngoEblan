@@ -359,6 +359,12 @@ local rift11 = RiftsTab:CreateButton({
 
 local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, rift10, rift11}
 
+workspace.Rendered.Rifts.ChildAdded:Connect(function(rift)
+	for _,a in pairs(rift.Sign.Sign:GetChildren()) do
+		a.CanCollide = false
+	end
+end)
+
 local while3 = coroutine.create(function()
 	while task.wait(2) do
 		local riftForTeleport = nil
@@ -368,9 +374,6 @@ local while3 = coroutine.create(function()
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 			table.insert(riftsPath, rift)
-			for _,a in pairs(rift.Sign.Sign:GetChildren()) do
-				a.CanCollide = false
-			end
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
