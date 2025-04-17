@@ -371,7 +371,7 @@ local while3 = coroutine.create(function()
 				else
 					needToTeleport = rift
 				end
-			do
+			end
 			if string.find(rift.Name, "egg") then
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 			else
