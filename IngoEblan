@@ -334,6 +334,10 @@ local while3 = coroutine.create(function()
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 			table.insert(riftsPath, rift)
+			rift.Display.CanCollide = false
+			for _,a in pairs(rift.Sign.Sign:GetChildren()) do
+				a.CanCollide = false
+			end
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
@@ -342,7 +346,6 @@ local while3 = coroutine.create(function()
 			else
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
-			rift.Display.CanCollide = false
 		end
 	end
 end)
