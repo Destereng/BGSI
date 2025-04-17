@@ -234,77 +234,77 @@ local Rift2Text = RiftsTab:CreateSection("Still in development")
 local rift1 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[1].Display
+      teleport(riftsPath[1].Display)
    end,
 })
 
 local rift2 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[2].Display
+      teleport(riftsPath[2].Display)
    end,
 })
 
 local rift3 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[3].Display
+      teleport(riftsPath[3].Display)
    end,
 })
 
 local rift4 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[4].Display
+      teleport(riftsPath[4].Display)
    end,
 })
 
 local rift5 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[5].Display
+      teleport(riftsPath[5].Display)
    end,
 })
 
 local rift6 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[6].Display
+      teleport(riftsPath[6].Display)
    end,
 })
 
 local rift7 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[7].Display
+      teleport(riftsPath[7].Display)
    end,
 })
 
 local rift8 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[8].Display
+      teleport(riftsPath[8].Display)
    end,
 })
 
 local rift9 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[9].Display
+      teleport(riftsPath[9].Display)
    end,
 })
 
 local rift10 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[10].Display
+      teleport(riftsPath[10].Display)
    end,
 })
 
 local rift11 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      riftsPath[11].Display
+      teleport(riftsPath[11].Display)
    end,
 })
 
