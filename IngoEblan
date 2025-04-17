@@ -25,10 +25,10 @@ SendMessage(Player.Name)
 --И не обращайте на это внимение :)
 
 local function teleport(object)
-	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z)).Magnitude
-        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/35, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z))}):Play()
+	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(object.Position.X, Player.Character.HumanoidRootPart.Position.Y, object.Position.Z)).Magnitude
+        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/35, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(object.Position.X, Player.Character.HumanoidRootPart.Position.Y, object.Position.Z))}):Play()
 	task.wait(mag/35)
-	Player.Character.HumanoidRootPart.CFrame = riftsPath[id].Display.CFrame
+	Player.Character.HumanoidRootPart.CFrame = object.CFrame
 end
 
 local Window = Rayfield:CreateWindow({
