@@ -201,12 +201,16 @@ local EggsTab = Window:CreateTab("Eggs", "rewind")
 local EggsText = EggsTab:CreateSection("This is necessary to open the eggs a little faster")
 
 local SelectedEgg = ""
+local TargetPos = Vector3.new(0,0,0)
 local Eggs = {}
 for _,egg in pairs(game.ReplicatedStorage.Assets.Eggs:GetChildren()) do
 	if not string.find(egg.Name, "Golden") and not string.find(egg.Name, "Season") and not string.find(egg.Name, "Shop") and egg.Name ~= "PackageLink" then
 		table.insert(Eggs, egg.Name)
 	end
 end
+
+local AutoEggOn = false
+
 local SelectEgg = EggsTab:CreateDropdown({
 	Name = "Select Egg",
 	Options = Eggs, 
@@ -214,6 +218,7 @@ local SelectEgg = EggsTab:CreateDropdown({
 	MultipleOptions = false,
 	Flag = "Dropdown1",
 	Callback = function(CurrentOption)
+		AutoEggOn = false
 		for _,i in pairs(CurrentOption) do 
 			SelectedEgg = i
 		end
@@ -243,7 +248,6 @@ local PriorEgg = EggsTab:CreateToggle({
 	end,
 })
 
-local AutoEggOn = false
 local AutoEgg = EggsTab:CreateToggle({
 	Name = "Open Eggs",
 	Value = false,
@@ -252,6 +256,7 @@ local AutoEgg = EggsTab:CreateToggle({
 		AutoEggOn = Value
 		if Value then
 			teleport(Vector3.new(-95.5, 11, -27.1))
+			TargetPos = EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position
 			teleport(EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
 			Rayfield:Notify({
 				Title = "Eggs Open",
@@ -383,6 +388,11 @@ local while3 = coroutine.create(function()
 			if mag > 50 then
 				teleport(needToTeleport.Display.Position)
 			end
+		else
+			local mag = (Player.Character.HumanoidRootPart.Position - TargetPos).Magnitude
+			if mag > 10 then
+				teleport(TargetPos)
+			end
 		end
 	end
 end)
@@ -439,6 +449,8 @@ local while2 = coroutine.create(function()
 		end
 		if AutoEggOn then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
+		else
+			AutoEgg:Set(false)
 		end
 	end
 end)
