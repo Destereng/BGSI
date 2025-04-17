@@ -222,67 +222,16 @@ local AutoEgg = EggsTab:CreateToggle({
 	end,
 })
 
-local EnchTab = Window:CreateTab("Enchant", "rewind")
-local EnchText = EnchTab:CreateSection("Tab for auto enchant pets.")
-
-local SelectedPet = ""
-local Tut1Text = EnchTab:CreateSection("To select a pet, you need to equip ONLY THIS PET!")
-local Tut2Text = EnchTab:CreateSection("And also click on it so that its characteristics are written on the left.")
-local SelectedEnchants = {}
-local SelectEnchants = EnchTab:CreateDropdown({
-   Name = "Select Enchants",
-   Options = {"Team Up I", "Team Up II", "Team Up III", "Team Up IV", "Team Up V", 
-"Gleaming I", "Gleaming II", "Gleaming III", "Gleaming IV", "Gleaming V", 
-"Bubbler I", "Bubbler II", "Bubbler III", "Bubbler IV", "Bubbler V",
-"Looter I", "Looter II", "Looter III", "Looter IV", "Looter V"},
-   CurrentOption = {},
-   MultipleOptions = true,
-   Flag = "Dropdown69",
-   Callback = function(Options)
-      SelectedEnchants = Options
-   end,
-})
-
-local UseRerollOn = false
-local UseReroll = EnchTab:CreateToggle({
-	Name = "Use reroll orbs instead of gems",
-	Value = false,
-	Flag = "Toggle667",
-	Callback = function(Value)
-		UseRerollOn = Value
-	end,
-})
-
-local AutoEnchOn = false
-local AutoEnch = EnchTab:CreateToggle({
-	Name = "Start Enchanting",
-	Value = false,
-	Flag = "Toggle666",
-	Callback = function(Value)
-		AutoEnchOn = Value
-	end,
-})
-
 local RiftsTab = Window:CreateTab("Rifts", "rewind")
 local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and teleport to them")
 
 local riftsPath = {}
 
 local function teleport(id)
-	local closestIslandMag = 99999999
-	local closestIslandName = ""
-	for _,island in pairs(workspace.Worlds:WaitForChild("The Overworld").Islands:GetChildren()) do
-		local mag = (riftsPath[id].Display.Position - island.Island.UnlockHitbox.Position).Magnitude
-		if mag < closestIslandMag and island.Island.UnlockHitbox.Position.Y > riftsPath[id].Display.Position.Y then
-			closestIslandMag = mag
-			closestIslandName = island.Name
-		end
-	end
-	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", `Workspace.Worlds.The Overwos.{closestIslandName}.Island.Portal.Spawn`)
-	task.wait(0.5)
-        Player.Character.Humanoid.Jump = true
-        task.wait(0.5)
-        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(10), {CFrame = riftsPath[id].Display.CFrame}):Play()
+	local mag = (Player.Character.HumanoidRootPart.Position - riftsPath[id].Display.Position).Magnitude
+        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/100), {Position = Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z)}):Play()
+	task.wait(mag/100)
+	Player.Character.HumanoidRootPart.Position = riftsPath[id].Display.Position
 end
 
 local Rift2Text = RiftsTab:CreateSection("Still in development")
@@ -424,26 +373,6 @@ coroutine.resume(while1)
 
 local while2 = coroutine.create(function()
 	while task.wait(0.1) do
-		for _,pet in pairs(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Main.ScrollingFrame.Team.Main.List:GetChildren()) do
-			if string.find(pet.Name, "-") then
-				--SelectedPet = string.match(pet.Name, "^(.-)%-team%-0$")
-				print(SelectedPet)
-			end
-		end
-		local needEnch = true
-                if AutoEnchOn then
-			for _,ench in pairs(SelectedEnchants) do
-				if string.find(game.Players.LocalPlayer.PlayerGui.ScreenGui.Inventory.Frame.Inner.Pets.Details.Enchants.Enchant1.Title.Text, ench) then
-					needEnch = false
-				end
-			end 
-			if needEnch and not UseRerollOn then
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Function:InvokeServer("RerollEnchants", SelectedPet)
-			end
-			if needEnch and UseRerollOn then
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("RerollEnchant", SelectedPet, 1)
-			end
-                end
 		if AutoFarmOn then
 			for _,v in pairs(ColFolder:GetChildren()) do
 				game.ReplicatedStorage.Remotes.Pickups.CollectPickup:FireServer(v.Name)
