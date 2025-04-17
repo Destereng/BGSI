@@ -233,6 +233,16 @@ local EggsAmount = EggsTab:CreateSlider({
 	end,
 })
 
+local PriorEggOn = false
+local PriorEgg = EggsTab:CreateToggle({
+	Name = "Priority on eggs with multiplier",
+	Value = false,
+	Flag = "Toggle999",
+	Callback = function(Value)
+		PriorEggOn = Value
+	end,
+})
+
 local AutoEggOn = false
 local AutoEgg = EggsTab:CreateToggle({
 	Name = "Open Eggs",
@@ -257,8 +267,6 @@ local RiftsTab = Window:CreateTab("Rifts", "rewind")
 local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and teleport to them")
 
 local riftsPath = {}
-
-local Rift2Text = RiftsTab:CreateSection("Still in development")
 
 local rift1 = RiftsTab:CreateButton({
    Name = "",
@@ -341,6 +349,7 @@ local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, ri
 
 local while3 = coroutine.create(function()
 	while task.wait(2) do
+		local needToTeleport = false
 		for _,riftBtn in pairs(rifts) do
 			riftBtn:Set("")
 		end
@@ -354,6 +363,15 @@ local while3 = coroutine.create(function()
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
+			if PriotEggOn and betterName == SelectedEgg then
+				if needToTeleport ~= false then
+					if tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2) <  tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2) then
+						needToTeleport = rift
+					end
+				else
+					needToTeleport = rift
+				end
+			do
 			if string.find(rift.Name, "egg") then
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 			else
