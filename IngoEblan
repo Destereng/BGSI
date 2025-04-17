@@ -342,6 +342,7 @@ local while3 = coroutine.create(function()
 			else
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
+			rift.Display.CanCollide = false
 		end
 	end
 end)
