@@ -375,7 +375,7 @@ local while3 = coroutine.create(function()
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
-			if PriorEggOn and betterName == SelectedEgg then
+			if PriorEggOn and betterName == SelectedEgg and AutoEggOn then
 				if needToTeleport ~= false then
 					if tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) < tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) then
 						needToTeleport = rift
@@ -390,16 +390,18 @@ local while3 = coroutine.create(function()
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
 		end
-		if needToTeleport ~= false and AutoEggOn then
+		if needToTeleport ~= false then
 			local mag = (Player.Character.HumanoidRootPart.Position - needToTeleport.Display.Position).Magnitude
 			if mag > 50 then
 				teleport(needToTeleport.Display.Position)
 			end
 		else
-			local mag = (Player.Character.HumanoidRootPart.Position - curPos).Magnitude
-			if mag > 10 then
-				teleport(curPos)
-			end
+			if AutoEggon then
+				local mag = (Player.Character.HumanoidRootPart.Position - curPos).Magnitude
+				if mag > 10 then
+					teleport(curPos)
+				end
+			else
 		end
 	end
 end)
