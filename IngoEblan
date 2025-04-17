@@ -365,7 +365,7 @@ local while3 = coroutine.create(function()
 			end)
 			if PriorEggOn and betterName == SelectedEgg then
 				if needToTeleport ~= false then
-					if tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2) < tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2) then
+					if tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) < tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) then
 						needToTeleport = rift
 					end
 				else
