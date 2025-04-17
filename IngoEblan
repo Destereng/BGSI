@@ -365,7 +365,7 @@ local while3 = coroutine.create(function()
 			end)
 			if PriotEggOn and betterName == SelectedEgg then
 				if needToTeleport ~= false then
-					if tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2) <  tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2) then
+					if tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2) < tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2) then
 						needToTeleport = rift
 					end
 				else
@@ -378,6 +378,7 @@ local while3 = coroutine.create(function()
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
 		end
+		teleport(needToTeleport.Display.Position)
 	end
 end)
 coroutine.resume(while3)
