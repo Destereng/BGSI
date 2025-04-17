@@ -378,7 +378,9 @@ local while3 = coroutine.create(function()
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
 		end
-		teleport(needToTeleport.Display.Position)
+		if needToTeleport ~= false then
+			teleport(needToTeleport.Display.Position)
+		end
 	end
 end)
 coroutine.resume(while3)
