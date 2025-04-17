@@ -24,11 +24,11 @@ end
 SendMessage(Player.Name)
 --И не обращайте на это внимение :)
 
-local function teleport(object)
-	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(object.Position.X, Player.Character.HumanoidRootPart.Position.Y, object.Position.Z)).Magnitude
-        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/35, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(object.Position.X, Player.Character.HumanoidRootPart.Position.Y, object.Position.Z))}):Play()
-	task.wait(mag/35)
-	Player.Character.HumanoidRootPart.CFrame = object.CFrame
+local function teleport(pos)
+	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z)).Magnitude
+        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/40, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
+	task.wait(mag/40)
+	Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
 end
 
 local Window = Rayfield:CreateWindow({
@@ -82,7 +82,7 @@ for _,folder in pairs(workspace.Rendered:GetChildren()) do
 	if folder.Name == "Chunker" then
 		for _,v in pairs(folder:GetChildren()) do
 			if string.find(v.Name, "Egg") then
-				EggFolder = folder
+				EggsFolder = folder
 				break
 			end
 		end
@@ -227,7 +227,10 @@ local AutoEgg = EggsTab:CreateToggle({
 	Callback = function(Value)
 		AutoEggOn = Value
 		if Value then
-			teleport(workspace.Worlds:FindFirstChild("The Overworld").HatchZone)
+			print(SelectedEgg)
+			print(EggsFolder)
+			teleport(Vector3.new(-26.5, 11, -26.4))
+			teleport(Vector3.new(-95.5, 11, -27.1))
 			task.wait(0.5)
 			teleport(EggsFolder:FindFirstChild(SelectedEgg).Prompt)
 			Rayfield:Notify({
@@ -250,77 +253,77 @@ local Rift2Text = RiftsTab:CreateSection("Still in development")
 local rift1 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[1].Display)
+      teleport(riftsPath[1].Display.Position)
    end,
 })
 
 local rift2 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[2].Display)
+      teleport(riftsPath[2].Display.Position)
    end,
 })
 
 local rift3 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[3].Display)
+      teleport(riftsPath[3].Display.Position)
    end,
 })
 
 local rift4 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[4].Display)
+      teleport(riftsPath[4].Display.Position)
    end,
 })
 
 local rift5 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[5].Display)
+      teleport(riftsPath[5].Display.Position)
    end,
 })
 
 local rift6 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[6].Display)
+      teleport(riftsPath[6].Display.Position)
    end,
 })
 
 local rift7 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[7].Display)
+      teleport(riftsPath[7].Display.Position)
    end,
 })
 
 local rift8 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[8].Display)
+      teleport(riftsPath[8].Display.Position)
    end,
 })
 
 local rift9 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[9].Display)
+      teleport(riftsPath[9].Display.Position)
    end,
 })
 
 local rift10 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[10].Display)
+      teleport(riftsPath[10].Display.Position)
    end,
 })
 
 local rift11 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(riftsPath[11].Display)
+      teleport(riftsPath[11].Display.Position)
    end,
 })
 
