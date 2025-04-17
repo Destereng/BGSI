@@ -201,7 +201,6 @@ local EggsTab = Window:CreateTab("Eggs", "rewind")
 local EggsText = EggsTab:CreateSection("This is necessary to open the eggs a little faster")
 
 local SelectedEgg = ""
-local TargetPos = Vector3.new(0,0,0)
 local Eggs = {}
 for _,egg in pairs(game.ReplicatedStorage.Assets.Eggs:GetChildren()) do
 	if not string.find(egg.Name, "Golden") and not string.find(egg.Name, "Season") and not string.find(egg.Name, "Shop") and egg.Name ~= "PackageLink" then
@@ -248,6 +247,17 @@ local PriorEgg = EggsTab:CreateToggle({
 	end,
 })
 
+local curPos = Vector3.new(0, 0, 0)
+local curPosText = EggsTab:CreateSection("Position: 0, 0, 0")
+
+local setPos = EggsTab:CreateButton({
+   Name = "Update AFK Position",
+   Callback = function()
+	curPos = Player.Character.HumanoidRootPart.Position
+	curPosText:Set(`Position: {curPos}`)
+   end,
+})
+
 local AutoEgg = EggsTab:CreateToggle({
 	Name = "Open Eggs",
 	Value = false,
@@ -255,9 +265,6 @@ local AutoEgg = EggsTab:CreateToggle({
 	Callback = function(Value)
 		AutoEggOn = Value
 		if Value then
-			teleport(Vector3.new(-95.5, 11, -27.1))
-			TargetPos = EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position
-			teleport(EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
 			Rayfield:Notify({
 				Title = "Eggs Open",
 				Content = "To open eggs, you need to stand next to them",
@@ -383,15 +390,15 @@ local while3 = coroutine.create(function()
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
 		end
-		if needToTeleport ~= false then
+		if needToTeleport ~= false and AutoEggOn then
 			local mag = (Player.Character.HumanoidRootPart.Position - needToTeleport.Display.Position).Magnitude
 			if mag > 50 then
 				teleport(needToTeleport.Display.Position)
 			end
 		else
-			local mag = (Player.Character.HumanoidRootPart.Position - TargetPos).Magnitude
+			local mag = (Player.Character.HumanoidRootPart.Position - curPos).Magnitude
 			if mag > 10 then
-				teleport(TargetPos)
+				teleport(curPos)
 			end
 		end
 	end
