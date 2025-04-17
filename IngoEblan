@@ -379,7 +379,10 @@ local while3 = coroutine.create(function()
 			end
 		end
 		if needToTeleport ~= false then
-			teleport(needToTeleport.Display.Position)
+			local mag = (Player.Character.HumanoidRootPart.Position - needToTeleport.Display.Position).Magnitude
+			if mag > 50 then
+				teleport(needToTeleport.Display.Position)
+			end
 		end
 	end
 end)
