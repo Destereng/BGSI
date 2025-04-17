@@ -207,11 +207,6 @@ local AutoEgg = EggsTab:CreateToggle({
 	Callback = function(Value)
 		AutoEggOn = Value
 		if Value then
-			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.PortalSpawn")
-			task.wait(0.5)
-			TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(4), {CFrame = Workspace.Rendered.Generic:WaitForChild("Infinity Egg").Hitbox.CFrame + Vector3.new(0, 20, 0)}):Play()
-			task.wait(4.5)
-			TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(3), {CFrame = Workspace.Rendered.Generic:WaitForChild(SelectedEgg).Hitbox.CFrame}):Play()
 			Rayfield:Notify({
 				Title = "Eggs Open",
 				Content = "To open eggs, you need to stand next to them",
@@ -228,8 +223,8 @@ local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and telepo
 local riftsPath = {}
 
 local function teleport(id)
-	local mag = (Player.Character.HumanoidRootPart.Position - riftsPath[id].Display.Position).Magnitude
-        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/100), {Position = Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z)}):Play()
+	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z)).Magnitude
+        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/100), {CFrame = CFrame.new(Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z))}):Play()
 	task.wait(mag/100)
 	Player.Character.HumanoidRootPart.Position = riftsPath[id].Display.Position
 end
