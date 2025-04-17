@@ -224,8 +224,8 @@ local riftsPath = {}
 
 local function teleport(id)
 	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z)).Magnitude
-        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/250), {CFrame = CFrame.new(Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z))}):Play()
-	task.wait(mag/250)
+        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/50), {CFrame = CFrame.new(Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z))}):Play()
+	task.wait(mag/50)
 	Player.Character.HumanoidRootPart.CFrame = riftsPath[id].Display.CFrame
 end
 
