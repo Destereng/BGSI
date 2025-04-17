@@ -227,12 +227,9 @@ local AutoEgg = EggsTab:CreateToggle({
 	Callback = function(Value)
 		AutoEggOn = Value
 		if Value then
-			print(SelectedEgg)
-			print(EggsFolder)
-			teleport(Vector3.new(-26.5, 11, -26.4))
+			Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, 50, Player.Character.HumanoidRootPart.Position.Z))
 			teleport(Vector3.new(-95.5, 11, -27.1))
-			task.wait(0.5)
-			teleport(EggsFolder:FindFirstChild(SelectedEgg).Prompt)
+			teleport(EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
 			Rayfield:Notify({
 				Title = "Eggs Open",
 				Content = "To open eggs, you need to stand next to them",
