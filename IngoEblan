@@ -71,6 +71,19 @@ for _,folder in pairs(workspace.Rendered:GetChildren()) do
 		for _,v in pairs(folder:GetChildren()) do
 			if string.find(v.Name, "-") then
 				ColFolder = folder
+				break
+			end
+		end
+	end
+end
+
+local EggsFolder = workspace
+for _,folder in pairs(workspace.Rendered:GetChildren()) do
+	if folder.Name == "Chunker" then
+		for _,v in pairs(folder:GetChildren()) do
+			if string.find(v.Name, "Egg") then
+				EggFolder = folder
+				break
 			end
 		end
 	end
@@ -214,6 +227,9 @@ local AutoEgg = EggsTab:CreateToggle({
 	Callback = function(Value)
 		AutoEggOn = Value
 		if Value then
+			teleport(workspace.Worlds:FindFirstChild("The Overworld").HatchZone)
+			task.wait(0.5)
+			teleport(EggsFolder:FindFirstChild(SelectedEgg).Prompt)
 			Rayfield:Notify({
 				Title = "Eggs Open",
 				Content = "To open eggs, you need to stand next to them",
