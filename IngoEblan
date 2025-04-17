@@ -361,14 +361,13 @@ local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, ri
 
 local while3 = coroutine.create(function()
 	while task.wait(2) do
-		local needToTeleport = false
+		local riftForTeleport = nil
 		for _,riftBtn in pairs(rifts) do
 			riftBtn:Set("")
 		end
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 			table.insert(riftsPath, rift)
-			rift.Display.CanCollide = false
 			for _,a in pairs(rift.Sign.Sign:GetChildren()) do
 				a.CanCollide = false
 			end
@@ -376,12 +375,12 @@ local while3 = coroutine.create(function()
   				return string.upper(first) .. rest
 			end)
 			if PriorEggOn and betterName == SelectedEgg and AutoEggOn then
-				if needToTeleport ~= false then
-					if tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) < tonumber(string.sub(needToTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) then
+				if riftForTeleport then
+					if tonumber(string.sub(riftForTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) < tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) then
 						needToTeleport = rift
 					end
 				else
-					needToTeleport = rift
+					riftForTeleport = rift
 				end
 			end
 			if string.find(rift.Name, "egg") then
@@ -390,18 +389,18 @@ local while3 = coroutine.create(function()
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
 		end
-		if needToTeleport ~= false then
-			local mag = (Player.Character.HumanoidRootPart.Position - needToTeleport.Display.Position).Magnitude
+		if riftForTeleport then
+			local mag = (Player.Character.HumanoidRootPart.Position - riftForTeleport.Display.Position).Magnitude
 			if mag > 50 then
-				teleport(needToTeleport.Display.Position)
+				teleport(riftForTeleport.Display.Position)
 			end
 		else
-			if AutoEggon then
+			if AutoEggOn then
 				local mag = (Player.Character.HumanoidRootPart.Position - curPos).Magnitude
 				if mag > 10 then
-					teleport(curPos)
+					teleport(riftForTeleport.Display.Position)
 				end
-			else
+			end
 		end
 	end
 end)
