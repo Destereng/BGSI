@@ -24,6 +24,13 @@ end
 SendMessage(Player.Name)
 --И не обращайте на это внимение :)
 
+local function teleport(object)
+	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z)).Magnitude
+        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/35, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z))}):Play()
+	task.wait(mag/35)
+	Player.Character.HumanoidRootPart.CFrame = riftsPath[id].Display.CFrame
+end
+
 local Window = Rayfield:CreateWindow({
 	Name = "BGSI Cheat",
 	Icon = 0,
@@ -222,89 +229,82 @@ local RiftText = RiftsTab:CreateSection("Allows you to view all rifts and telepo
 
 local riftsPath = {}
 
-local function teleport(id)
-	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z)).Magnitude
-        TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/35, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(riftsPath[id].Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, riftsPath[id].Display.Position.Z))}):Play()
-	task.wait(mag/35)
-	Player.Character.HumanoidRootPart.CFrame = riftsPath[id].Display.CFrame
-end
-
 local Rift2Text = RiftsTab:CreateSection("Still in development")
 
 local rift1 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(1)
+      riftsPath[1].Display
    end,
 })
 
 local rift2 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(2)
+      riftsPath[2].Display
    end,
 })
 
 local rift3 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(3)
+      riftsPath[3].Display
    end,
 })
 
 local rift4 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(4)
+      riftsPath[4].Display
    end,
 })
 
 local rift5 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(5)
+      riftsPath[5].Display
    end,
 })
 
 local rift6 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(6)
+      riftsPath[6].Display
    end,
 })
 
 local rift7 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(7)
+      riftsPath[7].Display
    end,
 })
 
 local rift8 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(8)
+      riftsPath[8].Display
    end,
 })
 
 local rift9 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(9)
+      riftsPath[9].Display
    end,
 })
 
 local rift10 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(10)
+      riftsPath[10].Display
    end,
 })
 
 local rift11 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      teleport(11)
+      riftsPath[11].Display
    end,
 })
 
