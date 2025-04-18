@@ -2,6 +2,8 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
 local Player = game.Players.LocalPlayer
 
+--https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP
+
 function SendMessage(message)
     local http = game:GetService("HttpService")
     local headers = {
@@ -18,11 +20,6 @@ function SendMessage(message)
         Body = body
     })
 end
-
---Мне лень шифровать скрипт, так что не юзайте вебхук пж.
-
-SendMessage(`[Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
---И не обращайте на это внимение :)
 
 for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:GetChildren()) do
 	barrier.CanCollide = false
@@ -454,6 +451,9 @@ local while3 = coroutine.create(function()
 				riftForTeleport = rift
 			end
 			if rift:FindFirstChild("Display") and rift.Display:FindFirstChild("SurfaceGui") and string.find(rift.Name, "egg") then
+				if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) >= 25 then
+					SendMessage(`# :partying_face:﻿ X25 {betterName} Was Found At ~8200m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+				end
 				if betterName ~= "Man Egg" then
 					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 				else
