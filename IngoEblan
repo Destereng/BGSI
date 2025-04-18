@@ -270,7 +270,7 @@ local PriorEgg = EggsTab:CreateToggle({
 })
 
 local AutoAuraOn = false
-local AutoAura = FarmTab:CreateToggle({
+local AutoAura = EggsTab:CreateToggle({
 	Name = "Auto Aura Egg",
 	Value = false,
 	Flag = "Toggle1111",
