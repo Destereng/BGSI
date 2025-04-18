@@ -405,6 +405,7 @@ for _,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 end
 
 workspace.Rendered.Rifts.ChildAdded:Connect(function(rift)
+	task.wait(1)
 	rift.Display.CanCollide = false
 	for _,a in pairs(rift.Sign:GetChildren()) do
 		if a:IsA("BasePart") then
@@ -433,6 +434,7 @@ local while3 = coroutine.create(function()
 		end
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
+			SendMessage(`# :partying_face:﻿ X25 {betterName} Was Found At ~8200m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
 			table.insert(riftsPath, rift)
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
@@ -452,7 +454,7 @@ local while3 = coroutine.create(function()
 			end
 			if rift:FindFirstChild("Display") and rift.Display:FindFirstChild("SurfaceGui") and string.find(rift.Name, "egg") then
 				if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) >= 25 then
-					SendMessage(`# :partying_face:﻿ X25 {betterName} Was Found At ~8200m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+					
 				end
 				if betterName ~= "Man Egg" then
 					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
