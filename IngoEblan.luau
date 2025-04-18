@@ -499,7 +499,7 @@ local while3 = coroutine.create(function()
 					end
 				end
 				if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) >= 25 then
-					if not rift:FindFirstChild("Checked") then
+					if not rift:FindFirstChild("Checked") and betterName == "Rainbow Egg" then
 						local c = Instance.new("StringValue", rift)
 						c.Name = "Checked"
 						--SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
