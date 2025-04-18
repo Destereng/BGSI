@@ -213,56 +213,6 @@ local AutoRoyal = FarmTab:CreateToggle({
 	end,
 })
 
-local AutoRoyalOn = false
-local AutoRoyal = FarmTab:CreateToggle({
-	Name = "Auto Royal Chest(DOESN'T WORK)",
-	Value = false,
-	Flag = "Toggle2111",
-	Callback = function(Value)
-		AutoRoyalOn = Value
-	end,
-})
-
-local AutoRoyalOn = false
-local AutoRoyal = FarmTab:CreateToggle({
-	Name = "Auto Royal Chest(DOESN'T WORK)",
-	Value = false,
-	Flag = "Toggle2111",
-	Callback = function(Value)
-		AutoRoyalOn = Value
-	end,
-})
-
-local AutoRoyalOn = false
-local AutoRoyal = FarmTab:CreateToggle({
-	Name = "Auto Royal Chest(DOESN'T WORK)",
-	Value = false,
-	Flag = "Toggle2111",
-	Callback = function(Value)
-		AutoRoyalOn = Value
-	end,
-})
-
-local AutoRoyalOn = false
-local AutoRoyal = FarmTab:CreateToggle({
-	Name = "Auto Royal Chest(DOESN'T WORK)",
-	Value = false,
-	Flag = "Toggle2111",
-	Callback = function(Value)
-		AutoRoyalOn = Value
-	end,
-})
-
-local AutoRoyalOn = false
-local AutoRoyal = FarmTab:CreateToggle({
-	Name = "Auto Royal Chest(DOESN'T WORK)",
-	Value = false,
-	Flag = "Toggle2111",
-	Callback = function(Value)
-		AutoRoyalOn = Value
-	end,
-})
-
 local AutoTicketOn = false
 local AutoTicket = ItemsTab:CreateToggle({
 	Name = "Auto Claim Wheel Tickets",
