@@ -29,8 +29,6 @@ for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:
 end
 
 local function tp(pos)
-	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.PortalSpawn")
-	task.wait(0.5)
 	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z)).Magnitude
 	Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, 35, Player.Character.HumanoidRootPart.Position.Z))
        	TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/42, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
