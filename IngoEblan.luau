@@ -456,7 +456,7 @@ local while3 = coroutine.create(function()
 					if not rift:FindFirstChild("Checked") then
 						local c = Instance.new("StringValue", rift)
 						c.Name = "Checked"
-						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~8200m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
 					end
 				end
 				if betterName ~= "Man Egg" then
