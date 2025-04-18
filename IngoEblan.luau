@@ -474,7 +474,7 @@ local while3 = coroutine.create(function()
 			table.insert(riftsPath, rift)
 			if string.find(rift.Name, "egg") or string.find(rift.Name, "event") then
 				if string.find(rift.Name, "event") then
-					if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) < 25 then
+					if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) < 9 then
 						if not rift:FindFirstChild("Checked") then
 							local c = Instance.new("StringValue", rift)
 							c.Name = "Checked"
