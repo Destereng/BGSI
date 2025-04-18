@@ -434,11 +434,15 @@ local while3 = coroutine.create(function()
 		end
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
-			SendMessage(`# :partying_face:﻿ X25 {betterName} Was Found At ~8200m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
-			table.insert(riftsPath, rift)
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
+			if not rift:FindFirstChild("Checked") then
+				local c = Instance.new("StringValue", rift)
+				c.Name = "Checked"
+				SendMessage(`# :partying_face:﻿ X25 {betterName} Was Found At ~8200m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+			end
+			table.insert(riftsPath, rift)
 			if PriorEggOn and betterName == SelectedEgg and AutoEggOn and not auraEgg then
 				if riftForTeleport then
 					if tonumber(string.sub(riftForTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) < tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) then
