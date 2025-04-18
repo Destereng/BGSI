@@ -37,7 +37,7 @@ local function tp(pos)
 	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z)).Magnitude
 	Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, 35, Player.Character.HumanoidRootPart.Position.Z))
        	TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/42, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
-	task.wait(mag/42)
+	task.wait(mag/35)
 	for i = 1, 50 do
 		Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
 		task.wait(0.01)
@@ -190,6 +190,36 @@ local AutoShop2 = ItemsTab:CreateToggle({
 	Flag = "Toggle1000",
 	Callback = function(Value)
 		AutoShop2On = Value
+	end,
+})
+
+local AutoRoyalOn = false
+local AutoRoyal = FarmTab:CreateToggle({
+	Name = "Auto Royal Chest(DOESN'T WORK)",
+	Value = false,
+	Flag = "Toggle2111",
+	Callback = function(Value)
+		AutoRoyalOn = Value
+	end,
+})
+
+local AutoRoyalOn = false
+local AutoRoyal = FarmTab:CreateToggle({
+	Name = "Auto Royal Chest(DOESN'T WORK)",
+	Value = false,
+	Flag = "Toggle2111",
+	Callback = function(Value)
+		AutoRoyalOn = Value
+	end,
+})
+
+local AutoRoyalOn = false
+local AutoRoyal = FarmTab:CreateToggle({
+	Name = "Auto Royal Chest(DOESN'T WORK)",
+	Value = false,
+	Flag = "Toggle2111",
+	Callback = function(Value)
+		AutoRoyalOn = Value
 	end,
 })
 
