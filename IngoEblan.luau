@@ -21,7 +21,7 @@ end
 
 --Мне лень шифровать скрипт, так что не юзайте вебхук пж.
 
-SendMessage(Player.Name + /n + `[Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+SendMessage(`[Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
 --И не обращайте на это внимение :)
 
 for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:GetChildren()) do
