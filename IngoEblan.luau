@@ -102,6 +102,13 @@ end
 
 local FarmTab = Window:CreateTab("Farm", "rewind")
 
+local Rejoin = FarmTab:CreateButton({
+   Name = "",
+   Callback = function()
+	game:GetService("TeleportService"):Teleport(85896571713843)
+   end,
+})
+
 local AutoBlowOn = false
 local AutoBlow = FarmTab:CreateToggle({
 	Name = "Auto Blow",
