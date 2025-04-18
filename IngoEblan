@@ -187,6 +187,16 @@ local AutoShop2 = ItemsTab:CreateToggle({
 	end,
 })
 
+local AutoRoyalOn = false
+local AutoRoyal = FarmTab:CreateToggle({
+	Name = "Auto Royal Chest(DOESN'T WORK)",
+	Value = false,
+	Flag = "Toggle2111",
+	Callback = function(Value)
+		AutoRoyalOn = Value
+	end,
+})
+
 local AutoTicketOn = false
 local AutoTicket = ItemsTab:CreateToggle({
 	Name = "Auto Claim Wheel Tickets",
@@ -254,6 +264,16 @@ local PriorEgg = EggsTab:CreateToggle({
 	Flag = "Toggle999",
 	Callback = function(Value)
 		PriorEggOn = Value
+	end,
+})
+
+local AutoAuraOn = false
+local AutoAura = FarmTab:CreateToggle({
+	Name = "Auto Aura Egg",
+	Value = false,
+	Flag = "Toggle1111",
+	Callback = function(Value)
+		AutoAuraOn = Value
 	end,
 })
 
@@ -409,6 +429,9 @@ local while3 = coroutine.create(function()
 				else
 					riftForTeleport = rift
 				end
+			end
+			if AutoAuraOn and betterName == "Man Egg" and AutoEggOn then
+				riftForTeleport = rift
 			end
 			if string.find(rift.Name, "egg") then
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
