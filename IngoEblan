@@ -407,14 +407,26 @@ local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, ri
 for _,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 	rift.Display.CanCollide = false
 	for _,a in pairs(rift.Sign.Sign:GetChildren()) do
-		a.CanCollide = false
+		if a:IsA("BasePart") then
+			a.CanCollide = false
+		else
+			for _,b in pairs(a:GetChildren()) do
+				b.CanCollide = false
+			end
+		end
 	end
 end
 
 workspace.Rendered.Rifts.ChildAdded:Connect(function(rift)
 	rift.Display.CanCollide = false
-	for _,a in pairs(rift.Sign.Sign:GetChildren()) do
-		a.CanCollide = false
+	for _,a in pairs(rift.Sign:GetChildren()) do
+		if a:IsA("BasePart") then
+			a.CanCollide = false
+		else
+			for _,b in pairs(a:GetChildren()) do
+				b.CanCollide = false
+			end
+		end
 	end
 end)
 
@@ -426,7 +438,7 @@ end
 
 local auraEgg = false
 local while3 = coroutine.create(function()
-	while task.wait(2) do
+	while task.wait(1) do
 		auraEgg = false
 		local riftForTeleport = nil
 		for _,riftBtn in pairs(rifts) do
@@ -434,6 +446,13 @@ local while3 = coroutine.create(function()
 		end
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
+			if rift.Stop then
+				continue
+			end
+			if tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) <= 3 then
+				local stop = instance.new("IntValue", rift)
+				stop.Name = "Stop"
+			end
 			table.insert(riftsPath, rift)
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
