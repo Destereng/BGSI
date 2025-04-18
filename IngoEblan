@@ -35,8 +35,10 @@ local function tp(pos)
 	Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, 35, Player.Character.HumanoidRootPart.Position.Z))
        	TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/42, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
 	task.wait(mag/42)
-	Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
-	task.wait(0.2)
+	for i = 1, 50 do
+		Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
+		task.wait(0.01)
+	end
 end
 
 local Window = Rayfield:CreateWindow({
@@ -436,13 +438,6 @@ local while3 = coroutine.create(function()
 		end
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
-			if rift:FindFirstChild("Stop") then
-				continue
-			end
-			if string.find(rift.Display.SurfaceGui.Timer.Text, "seconds") and tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) <= 3 then
-				local stop = Instance.new("IntValue", rift)
-				stop.Name = "Stop"
-			end
 			table.insert(riftsPath, rift)
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
@@ -460,7 +455,7 @@ local while3 = coroutine.create(function()
 				auraEgg = true
 				riftForTeleport = rift
 			end
-			if string.find(rift.Name, "egg") then
+			if rift:FindFirstChild("Display") and rift.Display:FindFirstChild("SurfaceGui") and string.find(rift.Name, "egg") then
 				if betterName ~= "Man Egg" then
 					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 				else
