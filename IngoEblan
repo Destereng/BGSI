@@ -449,7 +449,7 @@ local while3 = coroutine.create(function()
 			if rift:FindFirstChild("Stop") then
 				continue
 			end
-			if string.find(string.match(rift.Display.SurfaceGui.Timer.Text, "seconds") and tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) <= 3 then
+			if string.find(rift.Display.SurfaceGui.Timer.Text, "seconds") and tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) <= 3 then
 				local stop = Instance.new("IntValue", rift)
 				stop.Name = "Stop"
 			end
