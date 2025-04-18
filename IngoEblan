@@ -29,7 +29,6 @@ for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:
 end
 
 local function tp(pos)
-	Player.Character.HumanoidRootPart.Anchored = true
 	game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.PortalSpawn")
 	task.wait(0.5)
 	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z)).Magnitude
@@ -38,7 +37,6 @@ local function tp(pos)
 	task.wait(mag/42)
 	Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
 	task.wait(0.2)
-	Player.Character.HumanoidRootPart.Anchored = false
 end
 
 local Window = Rayfield:CreateWindow({
