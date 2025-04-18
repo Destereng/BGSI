@@ -437,11 +437,6 @@ local while3 = coroutine.create(function()
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
-			if not rift:FindFirstChild("Checked") then
-				local c = Instance.new("StringValue", rift)
-				c.Name = "Checked"
-				SendMessage(`# :partying_face:﻿ X25 {betterName} Was Found At ~8200m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
-			end
 			table.insert(riftsPath, rift)
 			if PriorEggOn and betterName == SelectedEgg and AutoEggOn and not auraEgg then
 				if riftForTeleport then
@@ -458,7 +453,11 @@ local while3 = coroutine.create(function()
 			end
 			if rift:FindFirstChild("Display") and rift.Display:FindFirstChild("SurfaceGui") and string.find(rift.Name, "egg") then
 				if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) >= 25 then
-					
+					if not rift:FindFirstChild("Checked") then
+						local c = Instance.new("StringValue", rift)
+						c.Name = "Checked"
+						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~8200m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+					end
 				end
 				if betterName ~= "Man Egg" then
 					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
