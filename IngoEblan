@@ -39,12 +39,9 @@ local function tp(pos)
 		Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, -20, Player.Character.HumanoidRootPart.Position.Z))
        		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/35, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
 		task.wait(mag/40)
-		Player.Character.HumanoidRootPart.Anchored = false
-		for i = 1, 100 do
-			Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
-			task.wait(0.01)
-		end
+		Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
 		task.wait(0.2)
+		Player.Character.HumanoidRootPart.Anchored = false
 		teleporting = false
 	end
 end
