@@ -446,7 +446,7 @@ local while3 = coroutine.create(function()
 		end
 		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
-			if rift.Stop then
+			if rift:FindFirstChild("Stop") then
 				continue
 			end
 			if tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) <= 3 then
