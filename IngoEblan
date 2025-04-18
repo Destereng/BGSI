@@ -425,6 +425,7 @@ end
 local auraEgg = false
 local while3 = coroutine.create(function()
 	while task.wait(2) do
+		auraEgg = false
 		local riftForTeleport = nil
 		for _,riftBtn in pairs(rifts) do
 			riftBtn:Set("")
@@ -435,7 +436,7 @@ local while3 = coroutine.create(function()
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
-			if PriorEggOn and betterName == SelectedEgg and AutoEggOn then
+			if PriorEggOn and betterName == SelectedEgg and AutoEggOn and not auraEgg then
 				if riftForTeleport then
 					if tonumber(string.sub(riftForTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) < tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) then
 						needToTeleport = rift
@@ -447,8 +448,6 @@ local while3 = coroutine.create(function()
 			if AutoAuraOn and betterName == "Man Egg" and AutoEggOn then
 				auraEgg = true
 				riftForTeleport = rift
-			else
-				auraEgg = false
 			end
 			if string.find(rift.Name, "egg") then
 				if betterName ~= "Man Egg" then
