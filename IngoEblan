@@ -36,7 +36,7 @@ local function tp(pos)
 		task.wait(0.5)
 		local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z)).Magnitude
 		Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, -20, Player.Character.HumanoidRootPart.Position.Z))
-       		 TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/40, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
+       		TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/40, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
 		task.wait(mag/40)
 		for i = 1, 100 do
 			Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
