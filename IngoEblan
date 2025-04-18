@@ -45,7 +45,7 @@ local function tp(pos)
 		Player.Character.Humanoid.JumpPower = prew
 		teleporting = false
 	end
-end)
+end
 
 local Window = Rayfield:CreateWindow({
 	Name = "BGSI Cheat",
