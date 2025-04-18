@@ -460,6 +460,9 @@ local while3 = coroutine.create(function()
 			end)
 			table.insert(riftsPath, rift)
 			if string.find(rift.Name, "egg") or string.find(rift.Name, "event") then
+				if string.find(rift.Name, "event") then
+					SendMessage(`> # :partying_face:﻿ {betterName} Egg Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+				end
 				if betterName ~= "Man Egg" then
 					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 				else
@@ -474,7 +477,7 @@ local while3 = coroutine.create(function()
 					if not rift:FindFirstChild("Checked") then
 						local c = Instance.new("StringValue", rift)
 						c.Name = "Checked"
-						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1362879998389915839> \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
 					end
 				end
 			else
