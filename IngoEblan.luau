@@ -2,7 +2,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
 local Player = game.Players.LocalPlayer
 
---https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP
+--https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj
 
 function SendMessage(message)
     local http = game:GetService("HttpService")
@@ -14,7 +14,7 @@ function SendMessage(message)
     }
     local body = http:JSONEncode(data)
     local response = request({
-        Url = "https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj",
+        Url = "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP",
         Method = "POST",
         Headers = headers,
         Body = body
@@ -459,7 +459,7 @@ local while3 = coroutine.create(function()
   				return string.upper(first) .. rest
 			end)
 			table.insert(riftsPath, rift)
-			if rift:FindFirstChild("Display") and rift.Display:FindFirstChild("SurfaceGui") and string.find(rift.Name, "egg") then
+			if string.find(rift.Name, "egg") or string.find(rift.Name, "event") then
 				if betterName ~= "Man Egg" then
 					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 				else
