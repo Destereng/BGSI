@@ -425,32 +425,40 @@ for _,mountain in pairs(workspace.Worlds:FindFirstChild("The Overworld").Decorat
 end
 
 local auraEgg = false
+local while4 = coroutine.create(function()
+	while task.wait(2) do
+		auraEgg = false
+		for _,rift in pairs(workspace.Rendered.Rifts:getChildren()) do
+			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
+  				return string.upper(first) .. rest
+			end)
+			if betterName == SelectedEgg then
+				
+			end
+		end
+	end
+end)
+
 local while3 = coroutine.create(function()
 	while task.wait(1) do
-		auraEgg = false
 		table.clear(riftsPath)
-		local riftForTeleport = nil
 		for _,riftBtn in pairs(rifts) do
 			riftBtn:Set("")
 		end
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
+			local Display = false
+			for _,thing in pairs(rift:GetChildren()) do
+				if thing.Name == "Display" then
+					Display = true
+				end
+			end
+			if not Display then
+				continue
+			end
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
 			table.insert(riftsPath, rift)
-			if PriorEggOn and betterName == SelectedEgg and AutoEggOn and not auraEgg then
-				if riftForTeleport then
-					if tonumber(string.sub(riftForTeleport.Display.SurfaceGui.Icon.Luck.Text, 2)) < tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) then
-						needToTeleport = rift
-					end
-				else
-					riftForTeleport = rift
-				end
-			end
-			if AutoAuraOn and betterName == "Man Egg" and AutoEggOn then
-				auraEgg = true
-				riftForTeleport = rift
-			end
 			if rift:FindFirstChild("Display") and rift.Display:FindFirstChild("SurfaceGui") and string.find(rift.Name, "egg") then
 				if betterName ~= "Man Egg" then
 					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
@@ -466,26 +474,11 @@ local while3 = coroutine.create(function()
 					if not rift:FindFirstChild("Checked") then
 						local c = Instance.new("StringValue", rift)
 						c.Name = "Checked"
-						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @x25 egg \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1362879998389915839> \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
 					end
 				end
 			else
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
-			end
-		end
-		if riftForTeleport then
-			local mag = (Player.Character.HumanoidRootPart.Position - riftForTeleport.Display.Position).Magnitude
-			if mag > 50 then
-				local teleport = coroutine.create(tp)
-				coroutine.resume(teleport, riftForTeleport.Display.Position)
-			end
-		else
-			if AutoEggOn then
-				local mag = (Player.Character.HumanoidRootPart.Position - curPos).Magnitude
-				if mag > 10 then
-					local teleport = coroutine.create(tp)
-					coroutine.resume(teleport, curPos)
-				end
 			end
 		end
 	end
