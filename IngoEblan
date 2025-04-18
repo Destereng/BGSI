@@ -50,10 +50,10 @@ local function tp(pos)
 end
 
 local Window = Rayfield:CreateWindow({
-	Name = "BGSI Cheat",
+	Name = "Ingo Eblan",
 	Icon = 0,
-	LoadingTitle = "BubbleGum Simulator Infinity Cheat",
-	LoadingSubtitle = "Ingo eblan",
+	LoadingTitle = "Ingo Eblan",
+	LoadingSubtitle = "BubbleGum Simulator Infinity Cheat",
 	Theme = "Default",
 
 	DisableRayfieldPrompts = false,
