@@ -2,7 +2,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
 local Player = game.Players.LocalPlayer
 
---https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP
+--https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj
 
 function SendMessage(message)
     local http = game:GetService("HttpService")
@@ -14,7 +14,7 @@ function SendMessage(message)
     }
     local body = http:JSONEncode(data)
     local response = request({
-        Url = "https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj",
+        Url = "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP",
         Method = "POST",
         Headers = headers,
         Body = body
@@ -428,11 +428,11 @@ local auraEgg = false
 local while3 = coroutine.create(function()
 	while task.wait(1) do
 		auraEgg = false
+		table.clear(riftsPath)
 		local riftForTeleport = nil
 		for _,riftBtn in pairs(rifts) do
 			riftBtn:Set("")
 		end
-		table.clear(riftsPath)
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
@@ -456,7 +456,7 @@ local while3 = coroutine.create(function()
 					if not rift:FindFirstChild("Checked") then
 						local c = Instance.new("StringValue", rift)
 						c.Name = "Checked"
-						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. \n ### the link won't work if it's a private server \n [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+						SendMessage(`> # :partying_face:﻿ X25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
 					end
 				end
 				if betterName ~= "Man Egg" then
