@@ -474,19 +474,17 @@ local while3 = coroutine.create(function()
 			table.insert(riftsPath, rift)
 			if string.find(rift.Name, "egg") or string.find(rift.Name, "event") then
 				if string.find(rift.Name, "event") then
-					if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) < 9 then
-						if not rift:FindFirstChild("Checked") then
+						if not rift:FindFirstChild("Checked") and tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) == 10 then
 							local c = Instance.new("StringValue", rift)
 							c.Name = "Checked"
-							--SendMessage(`> # :partying_face:﻿ {rift.Display.SurfaceGui.Icon.Luck.Text} {betterName} Egg Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`)
+							SendMessage(`> # :partying_face:﻿ {rift.Display.SurfaceGui.Icon.Luck.Text} {betterName} Egg Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
 						end
 					else
-						if not rift:FindFirstChild("Checked") then
+						if not rift:FindFirstChild("Checked") and tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) == 25 then
 							local c = Instance.new("StringValue", rift)
 							c.Name = "Checked"
 							SendMessage(`> # :partying_face:﻿ {rift.Display.SurfaceGui.Icon.Luck.Text} {betterName} Egg Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
 						end
-					end
 				end
 				if betterName ~= "Man Egg" then
 					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
