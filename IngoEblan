@@ -481,14 +481,14 @@ local while3 = coroutine.create(function()
 			local mag = (Player.Character.HumanoidRootPart.Position - riftForTeleport.Display.Position).Magnitude
 			if mag > 50 then
 				local teleport = coroutine.create(tp)
-				cocroutine.resume(teleport, riftForTeleport.Display.Position)
+				coroutine.resume(teleport, riftForTeleport.Display.Position)
 			end
 		else
 			if AutoEggOn then
 				local mag = (Player.Character.HumanoidRootPart.Position - curPos).Magnitude
 				if mag > 10 then
 					local teleport = coroutine.create(tp)
-					cocroutine.resume(teleport, curPos)
+					coroutine.resume(teleport, curPos)
 				end
 			end
 		end
