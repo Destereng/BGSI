@@ -29,7 +29,7 @@ for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:
 end
 
 local teleporting = false
-local teleport = coroutine.create(function(pos)
+local function tp(pos)
 	if not telepoting then
 		teleporting = true
 		local prew = Player.Character.Humanoid.JumpPower
@@ -315,77 +315,88 @@ local riftsPath = {}
 local rift1 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[1].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[1].Display.Position)
    end,
 })
 
 local rift2 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[2].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[2].Display.Position)
    end,
 })
 
 local rift3 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[3].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[3].Display.Position)
    end,
 })
 
 local rift4 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[4].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[4].Display.Position)
    end,
 })
 
 local rift5 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[5].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[5].Display.Position)
    end,
 })
 
 local rift6 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[6].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[6].Display.Position)
    end,
 })
 
 local rift7 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[7].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[7].Display.Position)
    end,
 })
 
 local rift8 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[8].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[8].Display.Position)
    end,
 })
 
 local rift9 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[9].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[9].Display.Position)
    end,
 })
 
 local rift10 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[10].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[10].Display.Position)
    end,
 })
 
 local rift11 = RiftsTab:CreateButton({
    Name = "",
    Callback = function()
-      coroutine.resume(teleport, riftsPath[11].Display.Position)
+	local teleport = coroutine.create(tp)
+	coroutine.resume(teleport, riftsPath[11].Display.Position)
    end,
 })
 
@@ -452,12 +463,14 @@ local while3 = coroutine.create(function()
 		if riftForTeleport then
 			local mag = (Player.Character.HumanoidRootPart.Position - riftForTeleport.Display.Position).Magnitude
 			if mag > 50 then
+				local teleport = coroutine.create(tp)
 				cocroutine.resume(teleport, riftForTeleport.Display.Position)
 			end
 		else
 			if AutoEggOn then
 				local mag = (Player.Character.HumanoidRootPart.Position - curPos).Magnitude
 				if mag > 10 then
+					local teleport = coroutine.create(tp)
 					cocroutine.resume(teleport, curPos)
 				end
 			end
