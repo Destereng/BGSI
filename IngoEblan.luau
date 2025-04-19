@@ -428,15 +428,10 @@ local while4 = coroutine.create(function()
 		auraEgg = false
 		local EggOnRift = nil
 		for _,rift in pairs(workspace.Rendered.Rifts:getChildren()) do
-			local Display = false
-			for _,thing in pairs(rift:GetChildren()) do
-				if thing.Name == "Display" then
-					Display = true
-				end
-			end
-			if not Display then
-				continue
-			end
+			if not rift:FindFirstChild("Display") then continue end
+			if not rift.Display:FindFirstChild("SurfaceGui") then continue end
+			if not rift.Display.SurfaceGui:FindFirstChild("Timer") then continue end
+			if not rift.Display.SurfaceGui:FindFirstChild("Icon") then continue end
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
@@ -478,17 +473,16 @@ local while4 = coroutine.create(function()
 					task.wait(1)
 				end
 			end
+			if event then
+				local teleport = coroutine.create(tp)
+				coroutine.resume(teleport, Vector3.new(-396.6, 12013, -56.8))
+				task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(-396.6, 12013, -56.8)).Magnitude/38)+0.4)
+			end
 			local mag = (Player.Character.HumanoidRootPart.Position - EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position).Magnitude
-			if mag > 15 then
-				if not event then
-					local teleport = coroutine.create(tp)
-					coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
-					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
-				else
-					local teleport = coroutine.create(tp)
-					coroutine.resume(teleport, Vector3.new(-396.6, 12013, -56.8))
-					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(-396.6, 12013, -56.8)).Magnitude/38)+0.4)
-				end
+			if mag > 15 and not event then
+				local teleport = coroutine.create(tp)
+				coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
+				task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
 			end
 		end
 	end
@@ -501,15 +495,10 @@ local while3 = coroutine.create(function()
 			riftBtn:Set("")
 		end
 		for i,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
-			local Display = false
-			for _,thing in pairs(rift:GetChildren()) do
-				if thing.Name == "Display" then
-					Display = true
-				end
-			end
-			if not Display then
-				continue
-			end
+			if not rift:FindFirstChild("Display") then continue end
+			if not rift.Display:FindFirstChild("SurfaceGui") then continue end
+			if not rift.Display.SurfaceGui:FindFirstChild("Timer") then continue end
+			if not rift.Display.SurfaceGui:FindFirstChild("Icon") then continue end
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
