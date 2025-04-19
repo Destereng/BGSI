@@ -34,10 +34,12 @@ for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:
 end
 
 local function tp(pos)
+	if Player.Character.HumanoidRootPart.Position.Y < 35 then
+		Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, 35, Player.Character.HumanoidRootPart.Position.Z))
+	end
 	local mag = (Player.Character.HumanoidRootPart.Position - Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z)).Magnitude
-	Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, 35, Player.Character.HumanoidRootPart.Position.Z))
-       	TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/42, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
-	task.wait(mag/35)
+       	TweenService:Create(Player.Character.HumanoidRootPart, TweenInfo.new(mag/38, Enum.EasingStyle.Linear), {CFrame = CFrame.new(Vector3.new(pos.X, Player.Character.HumanoidRootPart.Position.Y, pos.Z))}):Play()
+	task.wait(mag/38)
 	for i = 1, 50 do
 		Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
 		task.wait(0.01)
@@ -103,13 +105,6 @@ for _,folder in pairs(workspace.Rendered:GetChildren()) do
 end
 
 local FarmTab = Window:CreateTab("Farm", "rewind")
-
-local Rejoin = FarmTab:CreateButton({
-   Name = "Rejoin",
-   Callback = function()
-	game:GetService("TeleportService"):Teleport(85896571713843)
-   end,
-})
 
 local AutoBlowOn = false
 local AutoBlow = FarmTab:CreateToggle({
@@ -193,26 +188,6 @@ local AutoShop2 = ItemsTab:CreateToggle({
 	end,
 })
 
-local AutoRoyalOn = false
-local AutoRoyal = FarmTab:CreateToggle({
-	Name = "Auto Royal Chest(DOESN'T WORK)",
-	Value = false,
-	Flag = "Toggle2111",
-	Callback = function(Value)
-		AutoRoyalOn = Value
-	end,
-})
-
-local AutoRoyalOn = false
-local AutoRoyal = FarmTab:CreateToggle({
-	Name = "Auto Royal Chest(DOESN'T WORK)",
-	Value = false,
-	Flag = "Toggle2111",
-	Callback = function(Value)
-		AutoRoyalOn = Value
-	end,
-})
-
 local AutoTicketOn = false
 local AutoTicket = ItemsTab:CreateToggle({
 	Name = "Auto Claim Wheel Tickets",
@@ -291,17 +266,6 @@ local AutoAura = EggsTab:CreateToggle({
 	Callback = function(Value)
 		AutoAuraOn = Value
 	end,
-})
-
-local curPos = Vector3.new(0, 0, 0)
-local curPosText = EggsTab:CreateSection("Position: 0, 0, 0")
-
-local setPos = EggsTab:CreateButton({
-   Name = "Update AFK Position",
-   Callback = function()
-	curPos = Player.Character.HumanoidRootPart.Position
-	curPosText:Set(`Position: {curPos}`)
-   end,
 })
 
 local AutoEgg = EggsTab:CreateToggle({
@@ -414,6 +378,15 @@ local rift11 = RiftsTab:CreateButton({
    end,
 })
 
+local ExtraTab = Window:CreateTab("Extra", "rewind")
+
+local Rejoin = ExtraTab:CreateButton({
+   Name = "Rejoin",
+   Callback = function()
+	game:GetService("TeleportService"):Teleport(85896571713843)
+   end,
+})
+
 local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, rift10, rift11}
 
 for _,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
@@ -453,12 +426,51 @@ local auraEgg = false
 local while4 = coroutine.create(function()
 	while task.wait(2) do
 		auraEgg = false
+		local EggOnRift = nil
 		for _,rift in pairs(workspace.Rendered.Rifts:getChildren()) do
+			local Display = false
+			for _,thing in pairs(rift:GetChildren()) do
+				if thing.Name == "Display" then
+					Display = true
+				end
+			end
+			if not Display then
+				continue
+			end
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
-			if betterName == SelectedEgg then
-				
+			if betterName == "Man Egg" then
+				auraEgg = true
+				EggOnRift = rift
+			end
+			if betterName == SelectedEgg and not auraEgg then
+				if EggOnRift then
+					if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) > tonumber(string.sub(EggOnRift.Display.SurfaceGui.Icon.Luck.Text, 2)) then
+						EggOnRift = rift
+					end
+				else
+					EggOnRift = rift
+				end
+			end
+		end
+		if EggOnRift then
+			local mag = (Player.Character.HumanoidRootPart.Position - EggOnRift.Display.Position).Magnitude
+			if mag > 50 then
+				local teleport = coroutine.create(tp)
+				coroutine.resume(teleport, EggOnRift.Display.Position)
+				task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
+			end
+		else
+			if not EggsFolder:FindFirstChild(SelectedEgg) then
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.FastTravel.Spawn")
+				task.wait(1)
+			end
+			local mag = (Player.Character.HumanoidRootPart.Position - EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position).Magnitude
+			if mag > 15 then
+				local teleport = coroutine.create(tp)
+				coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
+				task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
 			end
 		end
 	end
@@ -485,34 +497,26 @@ local while3 = coroutine.create(function()
 			end)
 			table.insert(riftsPath, rift)
 			if string.find(rift.Name, "egg") or string.find(rift.Name, "event") then
-				if betterName ~= "Man Egg" then
-					rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
-				else
-					rifts[i]:Set(`Aura Egg ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
+				if betterName == "Man Egg" then
+					betterName = "Aura Egg"
+				elseif betterName == "Event 1" then
+					betterName = "Bunny Egg"
+				elseif betterName == "Event 2" then
+					betterName = "Pastel Egg"
 				end
+				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 			else
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
-
-			if string.find(betterName, "Event") and not rift:FindFirstChild("Died") then
-				local died = Instance.new("StringValue", rift)
-				died.Name = "Died"
-				if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) == 10 then
-					SendMessage(`> # :partying_face:﻿ {rift.Display.SurfaceGui.Icon.Luck.Text} {betterName} Egg Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
+			if not rift:FindFirstChild("Died") then
+				if string.find(rift.Name, "event") and tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) == 25 then
+					local died = Instance.new("StringValue", rift)
+					died.Name = "Died"
+					SendMessage(`> # :partying_face:﻿ x25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
 				end
-				if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) == 25 then
-					SendMessage(`> # :partying_face:﻿ {rift.Display.SurfaceGui.Icon.Luck.Text} {betterName} Egg Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
+				if string.find(rift.Name, "man") then
+					SendMessage(`> # :partying_face:﻿ {tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))} {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
 				end
-			end
-			if string.find(betterName, "Man") and not rift:FindFirstChild("Died") then
-				local died = Instance.new("StringValue", rift)
-				died.Name = "Died"
-				SendMessage(`> # :partying_face:﻿ {rift.Display.SurfaceGui.Icon.Luck.Text} {betterName} Egg Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
-			end
-			if string.find(betterName, "Royal Chest") and not rift:FindFirstChild("Died") then
-				local died = Instance.new("StringValue", rift)
-				died.Name = "Died"
-				SendMessage(`> # :partying_face:﻿ {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @<@&1361771929417023799> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
 			end
 		end
 	end
@@ -580,8 +584,7 @@ local while2 = coroutine.create(function()
 			if not auraEgg then
 				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
 			else
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", "man-egg", CurrentEggsAmount)
-				print("Open Aura Egg")
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", "Man Egg", CurrentEggsAmount)
 			end
 		else
 			AutoEgg:Set(false)
