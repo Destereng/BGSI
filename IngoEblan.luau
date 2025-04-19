@@ -214,7 +214,7 @@ local EggsText = EggsTab:CreateSection("This is necessary to open the eggs a lit
 local SelectedEgg = ""
 local Eggs = {}
 for _,egg in pairs(game.ReplicatedStorage.Assets.Eggs:GetChildren()) do
-	if not string.find(egg.Name, "Golden") and not string.find(egg.Name, "Season") and not string.find(egg.Name, "Shop") and egg.Name ~= "PackageLink" then
+	if not string.find(egg.Name, "Golden") and not string.find(egg.Name, "Season") and not string.find(egg.Name, "Shop") and not string.find(egg.Name, "Event") and egg.Name ~= "PackageLink" then
 		table.insert(Eggs, egg.Name)
 	end
 end
@@ -444,6 +444,11 @@ local while4 = coroutine.create(function()
 				auraEgg = true
 				EggOnRift = rift
 			end
+			if betterName == "Event 1" then
+				betterName = "Bunny Egg"
+			elseif betterName == "Event 2" then
+				betterName = "Pastel Egg"
+			end
 			if betterName == SelectedEgg and not auraEgg then
 				if EggOnRift then
 					if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) > tonumber(string.sub(EggOnRift.Display.SurfaceGui.Icon.Luck.Text, 2)) then
@@ -462,15 +467,28 @@ local while4 = coroutine.create(function()
 				task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
 			end
 		else
+			local event = false
 			if not EggsFolder:FindFirstChild(SelectedEgg) then
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.FastTravel.Spawn")
-				task.wait(1)
+				if SelectedEgg == "Pastel Egg" or SelectedEgg == "Bunny Egg" then
+					event = true
+					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Event.Portal.Spawn")
+					task.wait(1)
+				else
+					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.FastTravel.Spawn")
+					task.wait(1)
+				end
 			end
 			local mag = (Player.Character.HumanoidRootPart.Position - EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position).Magnitude
 			if mag > 15 then
-				local teleport = coroutine.create(tp)
-				coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
-				task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
+				if not event then
+					local teleport = coroutine.create(tp)
+					coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
+					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
+				else
+					local teleport = coroutine.create(tp)
+					coroutine.resume(teleport, Vector3.new(-396.6, 12013, -56.8))
+					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(-396.6, 12013, -56.8)).Magnitude/38)+0.4)
+				end
 			end
 		end
 	end
@@ -581,10 +599,10 @@ local while2 = coroutine.create(function()
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("SellBubble")
 		end
 		if AutoEggOn then
-			if not auraEgg then
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
-			else
+			if auraEgg then
 				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", "Man Egg", CurrentEggsAmount)
+			else
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
 			end
 		else
 			AutoEgg:Set(false)
