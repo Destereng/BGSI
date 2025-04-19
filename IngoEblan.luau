@@ -431,7 +431,7 @@ local while4 = coroutine.create(function()
 			if not rift:FindFirstChild("Display") then continue end
 			if not rift.Display:FindFirstChild("SurfaceGui") then continue end
 			if not rift.Display.SurfaceGui:FindFirstChild("Timer") then continue end
-			if not rift.Display.SurfaceGui:FindFirstChild("Icon") then continue end
+			if string.find(rift.Name, "egg") and not rift.Display.SurfaceGui:FindFirstChild("Icon") then continue end
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
