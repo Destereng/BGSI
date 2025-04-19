@@ -488,6 +488,7 @@ local while4 = coroutine.create(function()
 		end
 	end
 end)
+coroutine.resume(while4)
 
 local while3 = coroutine.create(function()
 	while task.wait(1) do
