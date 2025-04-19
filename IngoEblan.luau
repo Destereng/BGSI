@@ -509,6 +509,11 @@ local while3 = coroutine.create(function()
 				died.Name = "Died"
 				SendMessage(`> # :partying_face:﻿ {rift.Display.SurfaceGui.Icon.Luck.Text} {betterName} Egg Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
 			end
+			if string.find(betterName, "Royal Chest") and not rift:FindFirstChild("Died") then
+				local died = Instance.new("StringValue", rift)
+				died.Name = "Died"
+				SendMessage(`> # :partying_face:﻿ {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @<@&1361771929417023799> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
+			end
 		end
 	end
 end)
