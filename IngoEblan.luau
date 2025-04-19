@@ -418,8 +418,8 @@ local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, ri
 
 for _,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 	rift.Display.CanCollide = false
-	for _,a in pairs(rift.Sign.Sign:GetChildren()) do
-		if a:IsA("BasePart") then
+	for _,a in pairs(rift.Sign:GetChildren()) do
+		if a:IsA("Part") then
 			a.CanCollide = false
 		else
 			for _,b in pairs(a:GetChildren()) do
