@@ -214,7 +214,7 @@ local EggsText = EggsTab:CreateSection("This is necessary to open the eggs a lit
 local SelectedEgg = ""
 local Eggs = {}
 for _,egg in pairs(game.ReplicatedStorage.Assets.Eggs:GetChildren()) do
-	if not string.find(egg.Name, "Golden") and not string.find(egg.Name, "Season") and not string.find(egg.Name, "Shop") and not string.find(egg.Name, "Event") and egg.Name ~= "PackageLink" then
+	if not string.find(egg.Name, "Golden") and not string.find(egg.Name, "Season") and not string.find(egg.Name, "Shop") and not string.find(egg.Name, "Easter") and egg.Name ~= "PackageLink" then
 		table.insert(Eggs, egg.Name)
 	end
 end
@@ -454,6 +454,7 @@ local while4 = coroutine.create(function()
 				end
 			end
 		end
+		print(`1{SelectedEgg}`)
 		if EggOnRift then
 			local mag = (Player.Character.HumanoidRootPart.Position - EggOnRift.Display.Position).Magnitude
 			if mag > 50 then
@@ -464,22 +465,22 @@ local while4 = coroutine.create(function()
 		else
 			local event = false
 			if not EggsFolder:FindFirstChild(SelectedEgg) then
+				print(`2{SelectedEgg}`)
 				if SelectedEgg == "Pastel Egg" or SelectedEgg == "Bunny Egg" then
 					event = true
 					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Event.Portal.Spawn")
+					print(3)
 					task.wait(1)
+					local teleport = coroutine.create(tp)
+					coroutine.resume(teleport, Vector3.new(-396.6, 12013, -56.8))
+					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(-396.6, 12013, -56.8)).Magnitude/38)+0.4)
 				else
 					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.FastTravel.Spawn")
 					task.wait(1)
 				end
 			end
-			if event then
-				local teleport = coroutine.create(tp)
-				coroutine.resume(teleport, Vector3.new(-396.6, 12013, -56.8))
-				task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(-396.6, 12013, -56.8)).Magnitude/38)+0.4)
-			end
 			local mag = (Player.Character.HumanoidRootPart.Position - EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position).Magnitude
-			if mag > 15 and not event then
+			if mag > 15 and not then
 				local teleport = coroutine.create(tp)
 				coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
 				task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
@@ -498,7 +499,7 @@ local while3 = coroutine.create(function()
 			if not rift:FindFirstChild("Display") then continue end
 			if not rift.Display:FindFirstChild("SurfaceGui") then continue end
 			if not rift.Display.SurfaceGui:FindFirstChild("Timer") then continue end
-			if not rift.Display.SurfaceGui:FindFirstChild("Icon") then continue end
+			if string.find(rift.Name, "egg") and not rift.Display.SurfaceGui:FindFirstChild("Icon") then continue end
 			local betterName = string.gsub(string.gsub(rift.Name, "-", " "), "(%a)([%w]*)", function(first, rest)
   				return string.upper(first) .. rest
 			end)
@@ -521,7 +522,7 @@ local while3 = coroutine.create(function()
 					died.Name = "Died"
 					SendMessage(`> # :partying_face:﻿ x25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
 				end
-				if string.find(rift.Name, "man") then
+				if string.find(rift.Name, "man-egg") then
 					SendMessage(`> # :partying_face:﻿ {tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))} {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
 				end
 			end
