@@ -600,7 +600,7 @@ local while4 = coroutine.create(function()
 				if mag > 15 then
 					local teleport = coroutine.create(tp)
 					coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
-					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
+					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position.Z)).Magnitude/38)+0.4)
 				end
 			end
 		end
