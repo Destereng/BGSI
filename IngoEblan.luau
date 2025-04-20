@@ -209,16 +209,6 @@ local AutoTicket = ItemsTab:CreateToggle({
 	end,
 })
 
-local AutoWheelOn = false
-local AutoWheel = ItemsTab:CreateToggle({
-	Name = "Auto Spin Wheel",
-	Value = false,
-	Flag = "Toggle102",
-	Callback = function(Value)
-		AutoWheelOn = Value
-	end,
-})
-
 local EggsTab = Window:CreateTab("Eggs", "rewind")
 local EggsText = EggsTab:CreateSection("This is necessary to open the eggs a little faster")
 
@@ -510,9 +500,6 @@ local while1 = coroutine.create(function()
 		end
 		if AutoTicketOn then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("ClaimFreeWheelSpin")
-		end
-		if AutoWheelOn then
-			game.ReplicatedStorage.Shared.Framework.Network.Remote.Function:InvokeServer("WheelSpin")
 		end
 	end
 end)
