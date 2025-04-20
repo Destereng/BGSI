@@ -563,11 +563,13 @@ local while4 = coroutine.create(function()
 				if EggOnRift then
 					if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) > tonumber(string.sub(EggOnRift.Display.SurfaceGui.Icon.Luck.Text, 2)) then
 						if string.find(rift.Display.SurfaceGui.Timer.Text, "seconds") and tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) > 15 then
+						else
 							EggOnRift = rift
 						end
 					end
 				else
 					if string.find(rift.Display.SurfaceGui.Timer.Text, "seconds") and tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) > 15 then
+					else
 						EggOnRift = rift
 					end
 				end
