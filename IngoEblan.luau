@@ -36,7 +36,9 @@ for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:
 	barrier.CanCollide = false
 end
 
+local teleporting = false
 local function tp(pos)
+	teleporting = true
 	if Player.Character.HumanoidRootPart.Position.Y < 35 then
 		Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(Player.Character.HumanoidRootPart.Position.X, 35, Player.Character.HumanoidRootPart.Position.Z))
 	end
@@ -47,6 +49,8 @@ local function tp(pos)
 		Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
 		task.wait(0.01)
 	end
+	task.wait(0.5)
+	teleporting = false
 end
 
 local Window = Rayfield:CreateWindow({
@@ -119,6 +123,20 @@ local AutoBlow = FarmTab:CreateToggle({
 	end,
 })
 
+local CurrentSellAmount = 500000
+local SellAmount = FarmTab:CreateSlider({
+	Name = "At what quantity of gum to sell",
+	Range = {0, 1500000},
+	Increment = 100000,
+	Suffix = "Amount Of Gum",
+	CurrentValue = 500000,
+	Flag = "Slider69",
+	Callback = function(CurrentValue)
+		CurrentSellAmount = CurrentValue
+	end,
+})
+
+local Selling = false
 local AutoSellOn = false
 local AutoSell = FarmTab:CreateToggle({
 	Name = "Auto Sell",
@@ -453,14 +471,14 @@ local while3 = coroutine.create(function()
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text})`)
 			end
 			if not rift:FindFirstChild("Died") then
+				local died = Instance.new("StringValue", rift)
+				died.Name = "Died"
 				if string.find(rift.Name, "event") and tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) == 25 then
 					SendMessage(`> # :partying_face:﻿ x25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, 1)
 				end
 				if string.find(rift.Name, "man-egg") then
 					SendMessage(`> # :partying_face:﻿ {tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))} {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, 1)
 				end
-				local died = Instance.new("StringValue", rift)
-				died.Name = "Died"
 			end
 		end
 	end
@@ -510,6 +528,12 @@ local while1 = coroutine.create(function()
 end)
 coroutine.resume(while1)
 
+local function Sell()
+	Selling = true
+	Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(-70.75, 6859.23, 120.47))
+	task.wait(0.5)
+	Selling = false
+end
 local while2 = coroutine.create(function()
 	while task.wait(0.1) do
 		if AutoFarmOn then
@@ -521,8 +545,9 @@ local while2 = coroutine.create(function()
 		if AutoBlowOn then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("BlowBubble")
 		end
-		if AutoSellOn then
-			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("SellBubble")
+		if AutoSellOn and not teleporting and tonumber(string.gsub(string.match(Player.PlayerGui.ScreenGui.HUD.Left.Currency.Bubble.Frame.Label.Text, '>([%d,]+)<font'), ',', '')) >= CurrentSellAmount then
+			local csell = coroutine.create(Sell)
+			coroutine.resume(csell)
 		end
 		if AutoEggOn then
 			if auraEgg then
@@ -575,36 +600,38 @@ local while4 = coroutine.create(function()
 				end
 			end
 		end
-		if AutoEggOn and SelectedEgg then
-			if PriorEggOn and EggOnRift then
-				local mag = (Player.Character.HumanoidRootPart.Position - EggOnRift.Display.Position).Magnitude
-				if mag > 50 then
-					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.FastTravel.Spawn")
-					task.wait(1)
-					local teleport = coroutine.create(tp)
-					coroutine.resume(teleport, EggOnRift.Display.Position)
-					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
-				end
-			else
-				local event = false
-				if not EggsFolder:FindFirstChild(SelectedEgg) then
-					if SelectedEgg == "Pastel Egg" or SelectedEgg == "Bunny Egg" then
-						event = true
-						game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Event.Portal.Spawn")
-						task.wait(1)
-						local teleport = coroutine.create(tp)
-						coroutine.resume(teleport, Vector3.new(-396.6, 12013, -56.8))
-						task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(-396.6, 12013, -56.8)).Magnitude/38)+0.4)
-					else
+		if not Selling and not teleporting then
+			if AutoEggOn and SelectedEgg then
+				if PriorEggOn and EggOnRift then
+					local mag = (Player.Character.HumanoidRootPart.Position - EggOnRift.Display.Position).Magnitude
+					if mag > 50 then
 						game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.FastTravel.Spawn")
 						task.wait(1)
+						local teleport = coroutine.create(tp)
+						coroutine.resume(teleport, EggOnRift.Display.Position)
+						task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
 					end
-				end
-				local mag = (Player.Character.HumanoidRootPart.Position - EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position).Magnitude
-				if mag > 15 then
-					local teleport = coroutine.create(tp)
-					coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
-					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position.Z)).Magnitude/38)+0.4)
+				else
+					local event = false
+					if not EggsFolder:FindFirstChild(SelectedEgg) then
+						if SelectedEgg == "Pastel Egg" or SelectedEgg == "Bunny Egg" then
+							event = true
+							game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Event.Portal.Spawn")
+							task.wait(1)
+							local teleport = coroutine.create(tp)
+							coroutine.resume(teleport, Vector3.new(-396.6, 12013, -56.8))
+							task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(-396.6, 12013, -56.8)).Magnitude/38)+0.4)
+						else
+							game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.FastTravel.Spawn")
+							task.wait(1)
+						end
+					end
+					local mag = (Player.Character.HumanoidRootPart.Position - EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position).Magnitude
+					if mag > 15 then
+						local teleport = coroutine.create(tp)
+						coroutine.resume(teleport, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position)
+						task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggsFolder:FindFirstChild(SelectedEgg).Prompt.Position.Z)).Magnitude/38)+0.4)
+					end
 				end
 			end
 		end
