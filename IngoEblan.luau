@@ -545,9 +545,8 @@ local while2 = coroutine.create(function()
 		if AutoBlowOn then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("BlowBubble")
 		end
-		print(CurrentSellAmount)
-		print(tonumber(string.gsub(string.match(Player.PlayerGui.ScreenGui.HUD.Left.Currency.Bubble.Frame.Label.Text, '>([%d,]+)<font'), ',', '')))
-		if AutoSellOn and not teleporting and tonumber(string.gsub(string.match(Player.PlayerGui.ScreenGui.HUD.Left.Currency.Bubble.Frame.Label.Text, '>([%d,]+)<font'), ',', '')) >= CurrentSellAmount then
+		local str = string.gsub(string.match(Player.PlayerGui.ScreenGui.HUD.Left.Currency.Bubble.Frame.Label.Text, '>([%d,]+)<font'), ',', '')
+		if AutoSellOn and not teleporting and tonumber(str) >= CurrentSellAmount then
 			local csell = coroutine.create(Sell)
 			coroutine.resume(csell)
 		end
