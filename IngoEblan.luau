@@ -427,7 +427,7 @@ local while4 = coroutine.create(function()
 	while task.wait(2) do
 		auraEgg = false
 		local EggOnRift = nil
-		for _,rift in pairs(workspace.Rendered.Rifts:getChildren()) do
+		for _,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
 			if not rift:FindFirstChild("Display") then continue end
 			if not rift.Display:FindFirstChild("SurfaceGui") then continue end
 			if not rift.Display.SurfaceGui:FindFirstChild("Timer") then continue end
