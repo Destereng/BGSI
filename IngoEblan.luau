@@ -540,7 +540,6 @@ coroutine.resume(while2)
 local auraEgg = false
 local while4 = coroutine.create(function()
 	while task.wait(2) do
-		print("0")
 		auraEgg = false
 		local EggOnRift = nil
 		for _,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
@@ -560,33 +559,29 @@ local while4 = coroutine.create(function()
 			elseif betterName == "Event 2" then
 				betterName = "Pastel Egg"
 			end
-			print("1")
 			if betterName == SelectedEgg and not auraEgg then
 				if EggOnRift then
 					if tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) > tonumber(string.sub(EggOnRift.Display.SurfaceGui.Icon.Luck.Text, 2)) then
-						EggOnRift = rift
-						print("1a")
+						if string.find(rift.Display.SurfaceGui.Timer.Text, "seconds") and tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) > 15 then
+							EggOnRift = rift
+						end
 					end
 				else
-					EggOnRift = rift
-					print("1b")
+					if string.find(rift.Display.SurfaceGui.Timer.Text, "seconds") and tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) > 15 then
+						EggOnRift = rift
+					end
 				end
 			end
 		end
-		print("2")
 		if AutoEggOn and SelectedEgg then
-			print("2a")
 			if PriorEggOn and EggOnRift then
-				print("3a")
 				local mag = (Player.Character.HumanoidRootPart.Position - EggOnRift.Display.Position).Magnitude
 				if mag > 50 then
-					print("3b")
 					local teleport = coroutine.create(tp)
 					coroutine.resume(teleport, EggOnRift.Display.Position)
 					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
 				end
 			else
-				print("4a")
 				local event = false
 				if not EggsFolder:FindFirstChild(SelectedEgg) then
 					if SelectedEgg == "Pastel Egg" or SelectedEgg == "Bunny Egg" then
