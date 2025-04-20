@@ -579,6 +579,8 @@ local while4 = coroutine.create(function()
 			if PriorEggOn and EggOnRift then
 				local mag = (Player.Character.HumanoidRootPart.Position - EggOnRift.Display.Position).Magnitude
 				if mag > 50 then
+					game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Worlds.The Overworld.FastTravel.Spawn")
+					task.wait(1)
 					local teleport = coroutine.create(tp)
 					coroutine.resume(teleport, EggOnRift.Display.Position)
 					task.wait(((Player.Character.HumanoidRootPart.Position - Vector3.new(EggOnRift.Display.Position.X, Player.Character.HumanoidRootPart.Position.Y, EggOnRift.Display.Position.Z)).Magnitude/38)+0.4)
