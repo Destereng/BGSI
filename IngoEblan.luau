@@ -574,7 +574,7 @@ local while4 = coroutine.create(function()
 			end
 		end
 		print("2")
-		if AutoEggOn and SelectedPet then
+		if AutoEggOn and SelectedEgg then
 			print("2a")
 			if PriorEggOn and EggOnRift then
 				print("3a")
