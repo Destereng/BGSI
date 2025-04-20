@@ -2,15 +2,18 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
 local Player = game.Players.LocalPlayer
 
---https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP
---https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj
-
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 Player.OnTeleport:Connect(function(State)
         queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
 end)
 
 function SendMessage(message, web)
+    local U = nil
+	if web == 1 then
+		U = "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP"
+	elseif web == 2 then
+		U = "https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj"
+	end
     local http = game:GetService("HttpService")
     local headers = {
         ["Content-Type"] = "application/json"
@@ -20,14 +23,14 @@ function SendMessage(message, web)
     }
     local body = http:JSONEncode(data)
     local response = request({
-        Url = web,
+        Url = U,
         Method = "POST",
         Headers = headers,
         Body = body
     })
 end
 
-SendMessage(Player.Name, "https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj")
+SendMessage(Player.Name, 2)
 
 for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:GetChildren()) do
 	barrier.CanCollide = false
@@ -451,13 +454,13 @@ local while3 = coroutine.create(function()
 			end
 			if not rift:FindFirstChild("Died") then
 				if string.find(rift.Name, "event") and tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) == 25 then
-					local died = Instance.new("StringValue", rift)
-					died.Name = "Died"
-					SendMessage(`> # :partying_face:﻿ x25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
+					SendMessage(`> # :partying_face:﻿ x25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, 1)
 				end
 				if string.find(rift.Name, "man-egg") then
-					SendMessage(`> # :partying_face:﻿ {tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))} {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, "https://discord.com/api/webhooks/1362767892155990297/_REhHK6-4AlbvzGTc5EOMBb2T4QeE4xNJg52azfFUbfXBXS5ERPt3zd909E5VxYD4NOP")
+					SendMessage(`> # :partying_face:﻿ {tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))} {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId})`, 1)
 				end
+				local died = Instance.new("StringValue", rift)
+				died.Name = "Died"
 			end
 		end
 	end
