@@ -536,7 +536,7 @@ coroutine.resume(while2)
 
 local auraEgg = false
 local while4 = coroutine.create(function()
-	while task.wait(2) do
+	while task.wait(1) do
 		auraEgg = false
 		local EggOnRift = nil
 		for _,rift in pairs(workspace.Rendered.Rifts:GetChildren()) do
