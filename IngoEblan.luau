@@ -147,16 +147,6 @@ local AutoSell = FarmTab:CreateToggle({
 	end,
 })
 
-local AutoFarmOn = false
-local AutoFarm = FarmTab:CreateToggle({
-	Name = "Auto Сollect",
-	Value = false,
-	Flag = "Toggle100",
-	Callback = function(Value)
-		AutoFarmOn = Value
-	end,
-})
-
 local ItemsTab = Window:CreateTab("Items", "rewind")
 
 local AutoDoggyOn = false
@@ -536,12 +526,6 @@ local function Sell()
 end
 local while2 = coroutine.create(function()
 	while task.wait(0.1) do
-		if AutoFarmOn then
-			for _,v in pairs(ColFolder:GetChildren()) do
-				game.ReplicatedStorage.Remotes.Pickups.CollectPickup:FireServer(v.Name)
-				v:Destroy()
-			end
-		end
 		if AutoBlowOn then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("BlowBubble")
 		end
@@ -552,7 +536,7 @@ local while2 = coroutine.create(function()
 		end
 		if AutoEggOn then
 			if auraEgg then
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", "Man Egg", CurrentEggsAmount)
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", "Aura Egg", CurrentEggsAmount)
 			else
 				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
 			end
