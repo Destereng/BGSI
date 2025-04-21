@@ -454,7 +454,7 @@ local while3 = coroutine.create(function()
 				local died = Instance.new("StringValue", rift)
 				died.Name = "Died"
 				local luck = 0
-				if string.find(rift.Name, "egg") then
+				if string.find(rift.Name, "egg") or string.find(rift.Name, "event") then
 					luck =  tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))
 				end
 				local eggs = {"Bunny Egg", "Pastel Egg", "Nightmare Egg", "Void Egg"}
