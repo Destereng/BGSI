@@ -49,7 +49,7 @@ local function tp(pos)
 		Player.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
 		task.wait(0.01)
 	end
-	task.wait(0.5)
+	task.wait(0.1)
 	teleporting = false
 end
 
@@ -535,8 +535,8 @@ local while1 = coroutine.create(function()
 end)
 coroutine.resume(while1)
 
-local while2 = coroutine.create(function()
-	while task.wait(0.1) do
+local while5 = coroutine.create(function()
+	while task.wait(0.01) do
 		local closestCol = nil
 		if AutoColOn and not teleporting then
 			for _,coll in pairs(ColFolder:GetChildren()) do
@@ -561,6 +561,12 @@ local while2 = coroutine.create(function()
 				coroutine.resume(teleport, closestCol.Position)
 			end
 		end
+	end
+end)
+coroutine.resume(while5)
+
+local while2 = coroutine.create(function()
+	while task.wait(0.1) do
 		if AutoBlowOn then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("BlowBubble")
 		end
