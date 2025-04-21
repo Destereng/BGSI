@@ -453,7 +453,11 @@ local while3 = coroutine.create(function()
 			if not rift:FindFirstChild("Died") then
 				local died = Instance.new("StringValue", rift)
 				died.Name = "Died"
-				local luck = tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))
+				local luck = if string.find(rift.Name, "egg") then
+					return tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))
+				else
+					return 0
+				end
 				local eggs = {"Bunny Egg", "Pastel Egg", "Nightmare Egg", "Void Egg"}
 				local time = false
 				if string.find(rift.Display.SurfaceGui.Timer.Text, "Minutes") then
