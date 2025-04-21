@@ -68,9 +68,9 @@ local Window = Rayfield:CreateWindow({
 	DisableBuildWarnings = false,
 
 	ConfigurationSaving = {
-		Enabled = false,
+		Enabled = true,
 		FolderName = nil,
-		FileName = "Big Hub"
+		FileName = "Ingo Eblan"
 	},
 
 	Discord = {
