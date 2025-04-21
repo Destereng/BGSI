@@ -453,8 +453,18 @@ local while3 = coroutine.create(function()
 			if not rift:FindFirstChild("Died") then
 				local died = Instance.new("StringValue", rift)
 				died.Name = "Died"
-				if betterName == "Bunny Egg" or betterName == "Pastel Egg" or betterName == "Nightmare Egg" or betterName == "Void Egg" and tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2)) == 25 then
-					SendMessage(`> # :partying_face:﻿ x25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId}) \n > ### Sent <t:{os.time()}:R>`, 1)
+				local luck = tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))
+				local eggs = {"Bunny Egg", "Pastel Egg", "Nightmare Egg", "Void Egg"}
+				local time = false
+				if string.find(text, "Minutes") then
+					if tonumber(string.match(text, "%d+")) >= 4 then
+						time = true
+					end
+				end
+				for _,egyName in pairs(eggs) do
+					if betterName == egyName and luck == 25 and time then
+						SendMessage(`> # :partying_face:﻿ x25 {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361772075270017054> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId}) \n > ### Sent <t:{os.time()}:R>`, 1)
+					end
 				end
 				if betterName == "Aura Egg" then
 					SendMessage(`> # :partying_face:﻿ {tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))} {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId}) \n > ### Sent <t:{os.time()}:R>`, 1)
