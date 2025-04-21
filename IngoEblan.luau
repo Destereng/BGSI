@@ -543,16 +543,20 @@ local while2 = coroutine.create(function()
 				for _,part in pairs(coll:GetChildren()) do
 					if part:IsA("BasePart") then
 						if closestCol then
-							if (Player.Character.HumanoidRootPart.Position - part.Position).Magnitude < (Player.Character.HumanoidRootPart.Position - closestCol.Position).Magnitude then
+							if (Player.Character.HumanoidRootPart.Position - part.Position).Magnitude < (Player.Character.HumanoidRootPart.Position - closestCol.Position).Magnitude and not part:FindFirstChild("Dead") then
 								closestCol = part
 							end
 						else
-							closestCol = part
+							if not part:FindFirstChild("Dead") then
+								closestCol = part
+							end
 						end
 					end
 				end
 			end
 			if closestCol then
+				local dead = Instance.new("StringValue", closestCol)
+				dead.Name = "Dead"
 				local teleport = coroutine.create(tp)
 				coroutine.resume(teleport, closestCol.Position)
 			end
