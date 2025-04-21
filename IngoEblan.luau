@@ -1,6 +1,8 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local TweenService = game:GetService("TweenService")
 local Player = game.Players.LocalPlayer
+local https = game:GetService("HttpService")
+local tps = game:GetService("TeleportService")
 
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 Player.OnTeleport:Connect(function(State)
@@ -14,7 +16,7 @@ function SendMessage(message, web)
 	elseif web == 2 then
 		U = "https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj"
 	end
-    local http = game:GetService("HttpService")
+    local https = game:GetService("HttpService")
     local headers = {
         ["Content-Type"] = "application/json"
     }
@@ -370,7 +372,7 @@ local ExtraTab = Window:CreateTab("Extra", "rewind")
 local Rejoin = ExtraTab:CreateButton({
    Name = "Rejoin",
    Callback = function()
-	game:GetService("TeleportService"):Teleport(85896571713843)
+	tps:Teleport(85896571713843)
    end,
 })
 
@@ -381,18 +383,18 @@ local Hop = ExtraTab:CreateButton({
 	if httprequest then
         local servers = {}
         local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true", PlaceId)})
-        local body = HttpService:JSONDecode(req.Body)
+        local body = https:JSONDecode(req.Body)
 
         if body and body.data then
             for i, v in next, body.data do
-                if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= JobId then
+                if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= game.JobId then
                     table.insert(servers, 1, v.id)
                 end
             end
         end
 
         if #servers > 0 then
-            TeleportService:TeleportToPlaceInstance(PlaceId, servers[math.random(1, #servers)], Players.LocalPlayer)
+            tps:TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], Player)
         else
             return notify("Serverhop", "Couldn't find a server.")
         end
