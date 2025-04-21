@@ -123,27 +123,13 @@ local AutoBlow = FarmTab:CreateToggle({
 	end,
 })
 
-local CurrentSellAmount = 500000
-local SellAmount = FarmTab:CreateSlider({
-	Name = "At what quantity of gum to sell",
-	Range = {0, 1500000},
-	Increment = 100000,
-	Suffix = "Amount Of Gum",
-	CurrentValue = 500000,
-	Flag = "Slider69",
-	Callback = function(CurrentValue)
-		CurrentSellAmount = CurrentValue
-	end,
-})
-
-local Selling = false
-local AutoSellOn = false
-local AutoSell = FarmTab:CreateToggle({
-	Name = "Auto Sell (DONT WORK)",
+local AutoColOn = false
+local AutoCol = FarmTab:CreateToggle({
+	Name = "Auto Collectibles",
 	Value = false,
 	Flag = "Toggle2",
 	Callback = function(Value)
-		AutoSellOn = Value
+		AutoColOn = Value
 	end,
 })
 
@@ -522,21 +508,30 @@ local while1 = coroutine.create(function()
 end)
 coroutine.resume(while1)
 
-local function Sell()
-	Selling = true
-	Player.Character.HumanoidRootPart.CFrame = CFrame.new(Vector3.new(-70.75, 6859.23, 120.47))
-	task.wait(0.5)
-	Selling = false
-end
 local while2 = coroutine.create(function()
 	while task.wait(0.1) do
+		local closestCol = nil
+		if AutoColOn and not teleporting then
+			for _,coll in pairs(ColFolder:GetChildren()) do
+				for _,part in pairs(coll:GetChildren()) do
+					if part:IsA("BasePart") then
+						if closestCol then
+							if (Player.Character.HumanoidRootPart.Position - part.Position).Magnitude > (Player.Character.HumanoidRootPart.Position - closestCol.Position) then
+								closestCol = part
+							end
+						else
+							closestCol = part
+						end
+					end
+				end
+			end
+			if closestCol then
+				local teleport = coroutine.create(tp)
+				coroutine.resume(teleport, closestCol.Position)
+			end
+		end
 		if AutoBlowOn then
 			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("BlowBubble")
-		end
-		local str = string.gsub(string.match(Player.PlayerGui.ScreenGui.HUD.Left.Currency.Bubble.Frame.Label.Text, '>([%d,]+)<font'), ',', '')
-		if AutoSellOn and not teleporting and tonumber(str) >= CurrentSellAmount then
-			local csell = coroutine.create(Sell)
-			coroutine.resume(csell)
 		end
 		if AutoEggOn then
 			if auraEgg then
@@ -589,7 +584,7 @@ local while4 = coroutine.create(function()
 				end
 			end
 		end
-		if not Selling and not teleporting then
+		if not teleporting then
 			if AutoEggOn and SelectedEgg then
 				if PriorEggOn and EggOnRift then
 					local mag = (Player.Character.HumanoidRootPart.Position - EggOnRift.Display.Position).Magnitude
