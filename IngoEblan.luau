@@ -459,7 +459,7 @@ local while3 = coroutine.create(function()
 				end
 				local eggs = {"Bunny Egg", "Pastel Egg", "Nightmare Egg", "Void Egg"}
 				local time = false
-				if string.find(rift.Display.SurfaceGui.Timer.Text, "Minutes") then
+				if string.find(rift.Display.SurfaceGui.Timer.Text, "minutes") then
 					if tonumber(string.match(text, "%d+")) >= 4 then
 						time = true
 					end
