@@ -516,7 +516,7 @@ local while2 = coroutine.create(function()
 				for _,part in pairs(coll:GetChildren()) do
 					if part:IsA("BasePart") then
 						if closestCol then
-							if (Player.Character.HumanoidRootPart.Position - part.Position).Magnitude > (Player.Character.HumanoidRootPart.Position - closestCol.Position).Magnitude then
+							if (Player.Character.HumanoidRootPart.Position - part.Position).Magnitude < (Player.Character.HumanoidRootPart.Position - closestCol.Position).Magnitude then
 								closestCol = part
 							end
 						else
