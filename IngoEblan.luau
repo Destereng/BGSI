@@ -16,14 +16,13 @@ function SendMessage(message, web)
 	elseif web == 2 then
 		U = "https://discord.com/api/webhooks/1361438999654436909/r6qCoQEx2BGvr8h8OyHcfuIkZ9-5IVFVkTvslOuwZxSVbxi8RUZnEyoBz7LP2twopnlj"
 	end
-    local https = game:GetService("HttpService")
     local headers = {
         ["Content-Type"] = "application/json"
     }
     local data = {
         ["content"] = message
     }
-    local body = http:JSONEncode(data)
+    local body = https:JSONEncode(data)
     local response = request({
         Url = U,
         Method = "POST",
