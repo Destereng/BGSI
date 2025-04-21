@@ -472,6 +472,9 @@ local while3 = coroutine.create(function()
 				if betterName == "Aura Egg" then
 					SendMessage(`> # :partying_face:﻿ {tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))} {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. @everyone \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId}) \n > ### Sent <t:{os.time()}:R>`, 1)
 				end
+				if betterName == "Royal Chest" and time then
+					SendMessage(`> # :partying_face:﻿ {betterName} Was Found At ~{math.round(rift.Display.Position.Y - 8)}m. <@&1361771929417023799> \n > ## Time Remaining {rift.Display.SurfaceGui.Timer.Text} \n > ### the link won't work if it's a private server \n > [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId}) \n > ### Sent <t:{os.time()}:R>`, 1)
+				end
 				
 			end
 		end
