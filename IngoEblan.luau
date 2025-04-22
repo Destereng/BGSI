@@ -8,7 +8,16 @@ TeleportService = cloneref(game:GetService("TeleportService"))
 PlaceId, JobId = game.PlaceId, game.JobId
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 
-writefile("IngoEblan.txt", "a = {} a.AutoHopOn = false a.StopAtAura = false return a")
+if not isfolder("IngoEblan") then
+	makefolder("IngoEblan")
+	task.wait(1)
+end
+if not isfile("IngoEblan/Conf.txt") then
+	writefile("IngoEblan/Conf.txt", "a={} a.AutoHopOn=false a.StopAtAura=false return a")
+	task.wait(1)
+end
+
+local a = loadstring(readfile("IngoEblan/Conf.txt"))()
 
 local function hop()
 	if httprequest then
@@ -401,7 +410,6 @@ local rift11 = RiftsTab:CreateButton({
 })
 
 local ExtraTab = Window:CreateTab("Extra", "rewind")
-local a = loadstring(readfile("IngoEblan.txt"))()
 
 local Rejoin = ExtraTab:CreateButton({
    Name = "Rejoin",
@@ -425,7 +433,6 @@ local StopAtAura = ExtraTab:CreateToggle({
 	Callback = function(Value)
 		a.StopAtAura = Value
 		StopAtAuraOn = Value
-		writefile("IngoEblan.txt", tostring(a))
 	end,
 })
 
@@ -437,7 +444,6 @@ local AutoHop = ExtraTab:CreateToggle({
 	Callback = function(Value)
 		a.AutoHopOn = Value
 		AutoHopOn = Value
-		writefile("IngoEblan.txt", tostring(a))
 	end,
 })
 
@@ -478,6 +484,9 @@ end
 
 local while3 = coroutine.create(function()
 	while task.wait(1) do
+
+		writefile("IngoEblan/Conf.txt", "a={} a.AutoHopOn=" .. tostring(a.AutoHopOn) .. " a.StopAtAura=" .. tostring(a.StopAtAura) .. " return a")
+
 		table.clear(riftsPath)
 		for _,riftBtn in pairs(rifts) do
 			riftBtn:Set("")
