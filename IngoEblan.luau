@@ -718,7 +718,7 @@ local while6 = coroutine.create(function()
 			if StopAtAuraOn then
 				StopAtAura:Set(true)
 			end
-                   	for i = 1, 50 do
+                   	for i = 1, 35 do
 				if StopAtAuraOn and auraEgg and not ok then
 					ok = true
 					AutoHopOn = false
