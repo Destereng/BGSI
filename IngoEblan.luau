@@ -6,6 +6,31 @@ local tps = game:GetService("TeleportService")
 HttpService = cloneref(game:GetService("HttpService"))
 TeleportService = cloneref(game:GetService("TeleportService"))
 PlaceId, JobId = game.PlaceId, game.JobId
+httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
+
+local function hop()
+	if httprequest then
+        local servers = {}
+        local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true", PlaceId)})
+        local body = HttpService:JSONDecode(req.Body)
+
+        if body and body.data then
+            for i, v in next, body.data do
+                if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= JobId then
+                    table.insert(servers, 1, v.id)
+                end
+            end
+        end
+
+        if #servers > 0 then
+            TeleportService:TeleportToPlaceInstance(PlaceId, servers[math.random(1, #servers)], Player)
+        else
+            return notify("Serverhop", "Couldn't find a server.")
+        end
+    else
+        notify("Incompatible Exploit", "Your exploit does not support this command (missing request)")
+    end
+end
 
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 local onTeleportt = false
@@ -72,7 +97,7 @@ local Window = Rayfield:CreateWindow({
 	DisableBuildWarnings = false,
 
 	ConfigurationSaving = {
-		Enabled = true,
+		Enabled = false,
 		FolderName = nil,
 		FileName = "Ingo Eblan"
 	},
@@ -374,6 +399,10 @@ local rift11 = RiftsTab:CreateButton({
 })
 
 local ExtraTab = Window:CreateTab("Extra", "rewind")
+local a = {AutoHopOn = false}
+if readfile("IngoEblan.txt") do
+    a = loadstring(readfile("IngoEblan.txt"))()
+end
 
 local Rejoin = ExtraTab:CreateButton({
    Name = "Rejoin",
@@ -385,29 +414,18 @@ local Rejoin = ExtraTab:CreateButton({
 local Hop = ExtraTab:CreateButton({
    Name = "Server Hop",
    Callback = function()
-	httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
-	if httprequest then
-        local servers = {}
-        local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true", PlaceId)})
-        local body = HttpService:JSONDecode(req.Body)
-
-        if body and body.data then
-            for i, v in next, body.data do
-                if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= JobId then
-                    table.insert(servers, 1, v.id)
-                end
-            end
-        end
-
-        if #servers > 0 then
-            TeleportService:TeleportToPlaceInstance(PlaceId, servers[math.random(1, #servers)], Player)
-        else
-            return notify("Serverhop", "Couldn't find a server.")
-        end
-    else
-        notify("Incompatible Exploit", "Your exploit does not support this command (missing request)")
-    end
+	hop()
    end,
+})
+
+local AutoHopOn = a.AutoHopOn
+local AutoHop = ExtraTab:CreateToggle({
+	Name = "Auto Hop",
+	Value = a.AutoHopOn,
+	Flag = "Toggle12",
+	Callback = function(Value)
+		AutoHopOn = Value
+	end,
 })
 
 local rifts = {rift1, rift2, rift3, rift4, rift5, rift6, rift7, rift8, rift9, rift10, rift11}
@@ -591,6 +609,18 @@ local while2 = coroutine.create(function()
 	end
 end)
 coroutine.resume(while2)
+
+local while6 = coroutine.create(function()
+	while task.wait(0.1) do
+		if AutoHopOn then
+                    task.wait(5)
+                    if AutoHopOn then
+                        hop()
+                    end
+                end
+	end
+end)
+coroutine.resume(while6)
 
 local auraEgg = false
 local while4 = coroutine.create(function()
