@@ -46,9 +46,9 @@ end
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 local onTeleportt = false
 Player.OnTeleport:Connect(function(State)
-    if not onTelelortt then
+    if not onTelelortt and queueteleport then
+	onTeleportt = true
         queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
-        onTeleportt = true
     end
 end)
 
@@ -427,7 +427,7 @@ local Hop = ExtraTab:CreateButton({
 
 local StopAtAuraOn = a.StopAtAura
 local StopAtAura = ExtraTab:CreateToggle({
-	Name = "Stop At Aura Egg",
+	Name = "Farm Aura Egg",
 	Value = false,
 	Flag = "Toggle14",
 	Callback = function(Value)
@@ -720,6 +720,7 @@ local while6 = coroutine.create(function()
                    	for i = 1, 50 do
 				if StopAtAuraOn and auraEgg then
 					AutoHopOn = false
+					
 					Rayfield:Notify({
  					  Title = "AURA EGG",
 					   Content = "AURA EGG",
