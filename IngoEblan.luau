@@ -428,7 +428,7 @@ local Hop = ExtraTab:CreateButton({
 local StopAtAuraOn = a.StopAtAura
 local StopAtAura = ExtraTab:CreateToggle({
 	Name = "Stop At Aura Egg",
-	Value = a.StopAtAura,
+	Value = false,
 	Flag = "Toggle14",
 	Callback = function(Value)
 		a.StopAtAura = Value
@@ -439,7 +439,7 @@ local StopAtAura = ExtraTab:CreateToggle({
 local AutoHopOn = a.AutoHopOn
 local AutoHop = ExtraTab:CreateToggle({
 	Name = "Auto Hop",
-	Value = a.AutoHopOn,
+	Value = false,
 	Flag = "Toggle13",
 	Callback = function(Value)
 		a.AutoHopOn = Value
@@ -713,6 +713,10 @@ coroutine.resume(while2)
 local while6 = coroutine.create(function()
 	while task.wait(0.1) do
 		if AutoHopOn then
+			AutoHop:Set(true)
+			if StopAtAuraOn then
+				StopAtAura:Set(true)
+			end
                    	for i = 1, 50 do
 				if StopAtAuraOn and auraEgg then
 					AutoHopOn = false
