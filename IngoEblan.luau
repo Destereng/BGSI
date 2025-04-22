@@ -39,6 +39,7 @@ local function hop()
 
         if #servers > 0 then
             TeleportService:TeleportToPlaceInstance(PlaceId, servers[math.random(1, #servers)], Player)
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
         else
             return notify("Serverhop", "Couldn't find a server.")
         end
@@ -49,11 +50,11 @@ end
 
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 local already = false
-Player.OnTeleport:Connect(function(State)
-    if already then return end
-	already = TeleportService:GetTeleportSetting("AlreadyTeleporting")
-        queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
-end)
+--Player.OnTeleport:Connect(function(State)
+--    if already then return end
+--	already = TeleportService:GetTeleportSetting("AlreadyTeleporting")
+--        queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
+--end)
 
 function SendMessage(message, web)
     local U = nil
