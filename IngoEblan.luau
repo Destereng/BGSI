@@ -423,8 +423,10 @@ local AutoHop = ExtraTab:CreateToggle({
 	Value = a.AutoHopOn,
 	Flag = "Toggle13",
 	Callback = function(Value)
+		local result = `a = {} a.AutoHopOn = {Value} return a`
+		print(result)
 		AutoHopOn = Value
-		writefile("IngoEblan.txt", `a = {} a.AutoHopOn = {Value} return a`)
+		writefile("IngoEblan.txt", result)
 	end,
 })
 
