@@ -8,6 +8,10 @@ TeleportService = cloneref(game:GetService("TeleportService"))
 PlaceId, JobId = game.PlaceId, game.JobId
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 
+if PlaceId ~= 85896571713843 then
+	error("This script only for bubble gum simulator infinity")
+end
+
 if not isfolder("IngoEblan") then
 	makefolder("IngoEblan")
 	task.wait(1)
