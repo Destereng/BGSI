@@ -710,6 +710,7 @@ end)
 coroutine.resume(while2)
 
 local ok = false
+local telep = false
 local while6 = coroutine.create(function()
 	while task.wait(0.1) do
 		if AutoHopOn then
@@ -736,6 +737,10 @@ local while6 = coroutine.create(function()
 			end
                     if AutoHopOn then
                         hop()
+			if not telep then
+				telep = true
+				queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
+			end
                     end
                 else
                     AutoHop:Set(false)
@@ -743,4 +748,3 @@ local while6 = coroutine.create(function()
 	end
 end)
 coroutine.resume(while6)
-queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
