@@ -157,7 +157,7 @@ local AutoPlaytimeOn = false
 local AutoPlaytime = ItemsTab:CreateToggle({
 	Name = "Auto Collect Playtime",
 	Value = false,
-	Flag = "Toggle5",
+	Flag = "Toggle4",
 	Callback = function(Value)
 		AutoPlaytimeOn = Value
 	end,
@@ -167,7 +167,7 @@ local AutoChestsOn = false
 local AutoChests = ItemsTab:CreateToggle({
 	Name = "Auto Collect Chests",
 	Value = false,
-	Flag = "Toggle69",
+	Flag = "Toggle5",
 	Callback = function(Value)
 		AutoChestsOn = Value
 	end,
@@ -177,7 +177,7 @@ local AutoShopOn = false
 local AutoShop = ItemsTab:CreateToggle({
 	Name = "Auto Alien Shop",
 	Value = false,
-	Flag = "Toggle89",
+	Flag = "Toggle6",
 	Callback = function(Value)
 		AutoShopOn = Value
 	end,
@@ -187,7 +187,7 @@ local AutoShop2On = false
 local AutoShop2 = ItemsTab:CreateToggle({
 	Name = "Auto Blackmarket",
 	Value = false,
-	Flag = "Toggle1000",
+	Flag = "Toggle7",
 	Callback = function(Value)
 		AutoShop2On = Value
 	end,
@@ -197,7 +197,7 @@ local AutoTicketOn = false
 local AutoTicket = ItemsTab:CreateToggle({
 	Name = "Auto Claim Wheel Tickets",
 	Value = false,
-	Flag = "Toggle101",
+	Flag = "Toggle8",
 	Callback = function(Value)
 		AutoTicketOn = Value
 	end,
@@ -247,7 +247,7 @@ local PriorEggOn = false
 local PriorEgg = EggsTab:CreateToggle({
 	Name = "Priority on eggs with multiplier",
 	Value = false,
-	Flag = "Toggle999",
+	Flag = "Toggle9",
 	Callback = function(Value)
 		PriorEggOn = Value
 	end,
@@ -257,7 +257,7 @@ local AutoAuraOn = false
 local AutoAura = EggsTab:CreateToggle({
 	Name = "Auto Aura Egg",
 	Value = false,
-	Flag = "Toggle1111",
+	Flag = "Toggle10",
 	Callback = function(Value)
 		AutoAuraOn = Value
 	end,
@@ -266,7 +266,7 @@ local AutoAura = EggsTab:CreateToggle({
 local AutoEgg = EggsTab:CreateToggle({
 	Name = "Open Eggs",
 	Value = false,
-	Flag = "Toggle4",
+	Flag = "Toggle11",
 	Callback = function(Value)
 		AutoEggOn = Value
 		if Value then
