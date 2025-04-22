@@ -710,6 +710,7 @@ local while2 = coroutine.create(function()
 end)
 coroutine.resume(while2)
 
+local ok = false
 local while6 = coroutine.create(function()
 	while task.wait(0.1) do
 		if AutoHopOn then
@@ -718,9 +719,13 @@ local while6 = coroutine.create(function()
 				StopAtAura:Set(true)
 			end
                    	for i = 1, 50 do
-				if StopAtAuraOn and auraEgg then
+				if StopAtAuraOn and auraEgg and not ok then
+					ok = true
 					AutoHopOn = false
-					
+					SelectedEgg = "Spikey Egg"
+					CurrentEggsAmount = 6
+					AutoAuraOn = true
+					AutoEggOn = true
 					Rayfield:Notify({
  					  Title = "AURA EGG",
 					   Content = "AURA EGG",
