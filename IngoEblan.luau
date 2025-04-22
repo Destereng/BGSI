@@ -60,9 +60,9 @@ function SendMessage(message, web)
     }
     local data = {
         ["content"] = message
-	["author"]: {
-    		["name"]: "Ingo Eblan",
-    		["icon_url"]: "https://cdn.discordapp.com/avatars/928640795412660254/00e915b248462bcc7a65ea68934c9267.webp?size=80"
+	["author"] = {
+    		["name"] = "Ingo Eblan",
+    		["icon_url"] = "https://cdn.discordapp.com/avatars/928640795412660254/00e915b248462bcc7a65ea68934c9267.webp?size=80"
     }
     local body = https:JSONEncode(data)
     local response = request({
