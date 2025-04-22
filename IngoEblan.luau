@@ -8,8 +8,12 @@ TeleportService = cloneref(game:GetService("TeleportService"))
 PlaceId, JobId = game.PlaceId, game.JobId
 
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
+local onTeleportt = false
 Player.OnTeleport:Connect(function(State)
+    if not onTelelortt then
         queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
+        onTeleportt = true
+    end
 end)
 
 function SendMessage(message, web)
