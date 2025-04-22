@@ -7,6 +7,7 @@ HttpService = cloneref(game:GetService("HttpService"))
 TeleportService = cloneref(game:GetService("TeleportService"))
 PlaceId, JobId = game.PlaceId, game.JobId
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
+queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 
 if PlaceId ~= 85896571713843 then
 	error("This script only for bubble gum simulator infinity")
@@ -39,7 +40,6 @@ local function hop()
 
         if #servers > 0 then
             TeleportService:TeleportToPlaceInstance(PlaceId, servers[math.random(1, #servers)], Player)
-		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
         else
             return notify("Serverhop", "Couldn't find a server.")
         end
@@ -47,14 +47,6 @@ local function hop()
         notify("Incompatible Exploit", "Your exploit does not support this command (missing request)")
     end
 end
-
-queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
-local already = false
---Player.OnTeleport:Connect(function(State)
---    if already then return end
---	already = TeleportService:GetTeleportSetting("AlreadyTeleporting")
---        queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
---end)
 
 function SendMessage(message, web)
     local U = nil
@@ -748,3 +740,4 @@ local while6 = coroutine.create(function()
 	end
 end)
 coroutine.resume(while6)
+queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
