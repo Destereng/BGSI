@@ -400,8 +400,10 @@ local rift11 = RiftsTab:CreateButton({
 
 local ExtraTab = Window:CreateTab("Extra", "rewind")
 local a = {AutoHopOn = false}
-if readfile("IngoEblan.txt") do
-    a = loadstring(readfile("IngoEblan.txt"))()
+if readfile("IngoEblan.txt") then
+	a = loadstring(readfile("IngoEblan.txt"))()
+else
+	writefile("IngoEblan.txt", "a = {} a.AutoHopOn = false return a")
 end
 
 local Rejoin = ExtraTab:CreateButton({
@@ -422,9 +424,10 @@ local AutoHopOn = a.AutoHopOn
 local AutoHop = ExtraTab:CreateToggle({
 	Name = "Auto Hop",
 	Value = a.AutoHopOn,
-	Flag = "Toggle12",
+	Flag = "Toggle13",
 	Callback = function(Value)
 		AutoHopOn = Value
+		writefile("IngoEblan.txt", `a = {} a.AutoHopOn = {Value} return a`)
 	end,
 })
 
