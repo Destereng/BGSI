@@ -31,7 +31,7 @@ local function hop()
 
         if body and body.data then
             for i, v in next, body.data do
-                if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and tonumber(v.playing) < tonumber(v.maxPlayers)-2 and v.id ~= JobId then
+                if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= JobId then
                     table.insert(servers, 1, v.id)
                 end
             end
@@ -48,12 +48,11 @@ local function hop()
 end
 
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
-local onTeleportt = false
+local already = false
 Player.OnTeleport:Connect(function(State)
-    if not onTelelortt and queueteleport then
-	onTeleportt = true
+    if already then return end
+	already = TeleportService:GetTeleportSetting("AlreadyTeleporting")
         queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
-    end
 end)
 
 function SendMessage(message, web)
