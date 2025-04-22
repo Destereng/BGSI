@@ -515,7 +515,7 @@ local while3 = coroutine.create(function()
 				if string.find(rift.Name, "egg") or string.find(rift.Name, "event") then
 					luck =  tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))
 				end
-				local eggs = {"Bunny Egg", "Pastel Egg", "Nightmare Egg", "Void Egg"}
+				local eggs = {"Bunny Egg"}
 				local time = false
 				if string.find(rift.Display.SurfaceGui.Timer.Text, "minutes") then
 					if tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) >= 4 then
