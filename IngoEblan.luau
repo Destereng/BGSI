@@ -8,6 +8,8 @@ TeleportService = cloneref(game:GetService("TeleportService"))
 PlaceId, JobId = game.PlaceId, game.JobId
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 
+writefile("IngoEblan.txt", "a = {} a.AutoHopOn = false return a")
+
 local function hop()
 	if httprequest then
         local servers = {}
@@ -399,12 +401,7 @@ local rift11 = RiftsTab:CreateButton({
 })
 
 local ExtraTab = Window:CreateTab("Extra", "rewind")
-local a = {AutoHopOn = false}
-if readfile("IngoEblan.txt") then
-	a = loadstring(readfile("IngoEblan.txt"))()
-else
-	writefile("IngoEblan.txt", "a = {} a.AutoHopOn = false return a")
-end
+local a = loadstring(readfile("IngoEblan.txt"))()
 
 local Rejoin = ExtraTab:CreateButton({
    Name = "Rejoin",
