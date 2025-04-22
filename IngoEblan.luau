@@ -59,7 +59,7 @@ function SendMessage(message, web)
         ["Content-Type"] = "application/json"
     }
     local data = {
-        ["content"] = message
+        ["content"] = message,
 	["author"] = {
     		["name"] = "Ingo Eblan",
     		["icon_url"] = "https://cdn.discordapp.com/avatars/928640795412660254/00e915b248462bcc7a65ea68934c9267.webp?size=80"
