@@ -8,7 +8,7 @@ TeleportService = cloneref(game:GetService("TeleportService"))
 PlaceId, JobId = game.PlaceId, game.JobId
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 
-writefile("IngoEblan.txt", "a = {} a.AutoHopOn = false return a")
+writefile("IngoEblan.txt", "a = {} a.AutoHopOn = false a.StopAtAura = false return a")
 
 local function hop()
 	if httprequest then
@@ -417,16 +417,27 @@ local Hop = ExtraTab:CreateButton({
    end,
 })
 
+local StopAtAuraOn = a.StopAtAura
+local StopAtAura = ExtraTab:CreateToggle({
+	Name = "Stop At Aura Egg",
+	Value = a.StopAtAura,
+	Flag = "Toggle14",
+	Callback = function(Value)
+		a.StopAtAura = Value
+		StopAtAuraOn = Value
+		writefile("IngoEblan.txt", tostring(a))
+	end,
+})
+
 local AutoHopOn = a.AutoHopOn
 local AutoHop = ExtraTab:CreateToggle({
 	Name = "Auto Hop",
 	Value = a.AutoHopOn,
 	Flag = "Toggle13",
 	Callback = function(Value)
-		local result = `a = {} a.AutoHopOn = {Value} return a`
-		print(result)
+		a.AutoHopOn = Value
 		AutoHopOn = Value
-		writefile("IngoEblan.txt", result)
+		writefile("IngoEblan.txt", tostring(a))
 	end,
 })
 
@@ -595,38 +606,6 @@ local while5 = coroutine.create(function()
 end)
 coroutine.resume(while5)
 
-local while2 = coroutine.create(function()
-	while task.wait(0.1) do
-		if AutoBlowOn then
-			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("BlowBubble")
-		end
-		if AutoEggOn then
-			if auraEgg then
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", "Aura Egg", CurrentEggsAmount)
-			else
-				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
-			end
-		else
-			AutoEgg:Set(false)
-		end
-	end
-end)
-coroutine.resume(while2)
-
-local while6 = coroutine.create(function()
-	while task.wait(0.1) do
-		if AutoHopOn then
-                    task.wait(5)
-                    if AutoHopOn then
-                        hop()
-                    end
-                else
-                    AutoHop:Set(false)
-                end
-	end
-end)
-coroutine.resume(while6)
-
 local auraEgg = false
 local while4 = coroutine.create(function()
 	while task.wait(1) do
@@ -703,3 +682,46 @@ local while4 = coroutine.create(function()
 	end
 end)
 coroutine.resume(while4)
+
+local while2 = coroutine.create(function()
+	while task.wait(0.1) do
+		if AutoBlowOn then
+			game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("BlowBubble")
+		end
+		if AutoEggOn then
+			if auraEgg then
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", "Aura Egg", CurrentEggsAmount)
+			else
+				game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("HatchEgg", SelectedEgg, CurrentEggsAmount)
+			end
+		else
+			AutoEgg:Set(false)
+		end
+	end
+end)
+coroutine.resume(while2)
+
+local while6 = coroutine.create(function()
+	while task.wait(0.1) do
+		if AutoHopOn then
+                   	for i = 1, 50 do
+				if StopAtAuraOn and auraEgg then
+					AutoHopOn = false
+					Rayfield:Notify({
+ 					  Title = "AURA EGG",
+					   Content = "AURA EGG",
+					   Duration = 5,
+ 					  Image = "rewind",
+					})
+				end
+				task.wait(0.1)
+			end
+                    if AutoHopOn then
+                        hop()
+                    end
+                else
+                    AutoHop:Set(false)
+                end
+	end
+end)
+coroutine.resume(while6)
