@@ -710,41 +710,13 @@ local while2 = coroutine.create(function()
 end)
 coroutine.resume(while2)
 
-local ok = false
-local telep = false
 local while6 = coroutine.create(function()
 	while task.wait(0.1) do
 		print("cycle")
-		if AutoHopOn then
-			AutoHop:Set(true)
-			if StopAtAuraOn then
-				StopAtAura:Set(true)
-			end
-			print(1)
-                   	for i = 1, 35 do
-				if StopAtAuraOn and auraEgg and not ok then
-					ok = true
-					AutoHopOn = false
-					SelectedEgg = "Spikey Egg"
-					CurrentEggsAmount = 6
-					AutoAuraOn = true
-					AutoEggOn = true
-					Rayfield:Notify({
- 					  Title = "AURA EGG",
-					   Content = "AURA EGG",
-					   Duration = 5,
- 					  Image = "rewind",
-					})
-				end
-				task.wait(0.1)
-				print(AutoHopOn)
-			end
-                    if AutoHopOn then
-                        hop()
-                    end
-                else
-                    AutoHop:Set(false)
-                end
+		AutoHop:Set(true)
+		if StopAtAuraOn then
+			StopAtAura:Set(true)
+		end
 	end
 end)
 coroutine.resume(while6)
