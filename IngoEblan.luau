@@ -42,7 +42,7 @@ local function hop()
 		local teleported = false
 		for _,server in pairs(servers) do
 			if server.playing < server.maxPlayers then
-				TeleportService:TeleportToPlaceInstance(PlaceId, server.id], Player)
+				TeleportService:TeleportToPlaceInstance(PlaceId, server.id, Player)
 			end
 		end
         else
