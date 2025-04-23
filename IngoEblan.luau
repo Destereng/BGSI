@@ -74,7 +74,7 @@ function SendMessage(message, web)
     })
 end
 
-SendMessage(Player.Name, 2)
+SendMessage(Player.Name .. [Click to join](https://destereng.github.io/roblox-redirect/?placeId={game.PlaceId}&gameInstanceId={game.JobId}), 2)
 
 for _,barrier in pairs(workspace.Worlds:FindFirstChild("The Overworld").Barrier:GetChildren()) do
 	barrier.CanCollide = false
