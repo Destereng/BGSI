@@ -714,11 +714,13 @@ local ok = false
 local telep = false
 local while6 = coroutine.create(function()
 	while task.wait(0.1) do
+		print("cycle")
 		if AutoHopOn then
 			AutoHop:Set(true)
 			if StopAtAuraOn then
 				StopAtAura:Set(true)
 			end
+			print(1)
                    	for i = 1, 35 do
 				if StopAtAuraOn and auraEgg and not ok then
 					ok = true
@@ -735,13 +737,10 @@ local while6 = coroutine.create(function()
 					})
 				end
 				task.wait(0.1)
+				print(2)
 			end
                     if AutoHopOn then
                         hop()
-			if not telep then
-				telep = true
-				queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
-			end
                     end
                 else
                     AutoHop:Set(false)
@@ -749,3 +748,4 @@ local while6 = coroutine.create(function()
 	end
 end)
 coroutine.resume(while6)
+queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Destereng/BGSI/refs/heads/main/IngoEblan.luau'))()")
