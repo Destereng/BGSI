@@ -710,12 +710,35 @@ local while2 = coroutine.create(function()
 end)
 coroutine.resume(while2)
 
+local auraFinded = false
 local while6 = coroutine.create(function()
 	while task.wait(0.1) do
 		print("cycle")
-		AutoHop:Set(true)
-		if StopAtAuraOn then
-			StopAtAura:Set(true)
+		if AutoHopOn then
+			AutoHop:Set(true)
+			if StopAtAuraOn then
+				StopAtAura:Set(true)
+			end
+			for i = 1, 30 do
+				if auraEgg and not auraFinded and StopAtAuraOn then
+					auraFinded = true
+					AutoHopOn = false
+					AutoHop:Set(false)
+					SelectedEgg = "Hell Egg"
+					AutoAuraOn = true
+					AutoEggOn = true
+					Rayfield:Notify({
+   						Title = "AURA EGG",
+  						 Content = "AURA AURA AURA AURA AURA AURA AURA AURA",
+  						 Duration = 6.5,
+  						 Image = "rewind",
+					})
+				end
+				task.wait(0.1)
+			end
+			if AutoHopOn then
+				hop()
+			end
 		end
 	end
 end)
