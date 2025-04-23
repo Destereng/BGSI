@@ -737,7 +737,7 @@ local while6 = coroutine.create(function()
 					})
 				end
 				task.wait(0.1)
-				print(2)
+				print(AutoHopOn)
 			end
                     if AutoHopOn then
                         hop()
