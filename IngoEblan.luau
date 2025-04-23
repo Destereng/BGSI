@@ -33,13 +33,18 @@ local function hop()
         if body and body.data then
             for i, v in next, body.data do
                 if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= JobId then
-                    table.insert(servers, 1, v.id)
+                    table.insert(servers, 1, v)
                 end
             end
         end
 
         if #servers > 0 then
-            TeleportService:TeleportToPlaceInstance(PlaceId, servers[math.random(1, #servers)], Player)
+		local teleported = false
+		for _,server in pairs(servers) do
+			if server.playing < server.maxPlayers then
+				TeleportService:TeleportToPlaceInstance(PlaceId, server.id], Player)
+			end
+		end
         else
             return notify("Serverhop", "Couldn't find a server.")
         end
