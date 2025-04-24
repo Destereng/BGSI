@@ -512,6 +512,8 @@ local while3 = coroutine.create(function()
 					betterName = "Bunny Egg"
 				elseif betterName == "Event 2" then
 					betterName = "Pastel Egg"
+                                elseif betterName == "Event 3" then
+					betterName = "Throwback Egg"
 				end
 				rifts[i]:Set(`{betterName} ({rift.Display.SurfaceGui.Timer.Text}) ({rift.Display.SurfaceGui.Icon.Luck.Text})`)
 			else
@@ -524,7 +526,7 @@ local while3 = coroutine.create(function()
 				if string.find(rift.Name, "egg") or string.find(rift.Name, "event") then
 					luck =  tonumber(string.sub(rift.Display.SurfaceGui.Icon.Luck.Text, 2))
 				end
-				local eggs = {"Bunny Egg"}
+				local eggs = {"Bunny Egg", "Pastel Egg", "Throwback Egg"}
 				local time = false
 				if string.find(rift.Display.SurfaceGui.Timer.Text, "minutes") then
 					if tonumber(string.match(rift.Display.SurfaceGui.Timer.Text, "%d+")) >= 4 then
@@ -641,6 +643,8 @@ local while4 = coroutine.create(function()
 				betterName = "Bunny Egg"
 			elseif betterName == "Event 2" then
 				betterName = "Pastel Egg"
+                         elseif betterName == "Event 3" then
+				betterName = "Throwback Egg"
 			end
 			if betterName == SelectedEgg and not auraEgg then
 				if EggOnRift then
@@ -672,7 +676,7 @@ local while4 = coroutine.create(function()
 				else
 					local event = false
 					if not EggsFolder:FindFirstChild(SelectedEgg) then
-						if SelectedEgg == "Pastel Egg" or SelectedEgg == "Bunny Egg" then
+						if SelectedEgg == "Pastel Egg" or SelectedEgg == "Bunny Egg" or SelectedEgg == "Throwback Egg" then
 							event = true
 							game.ReplicatedStorage.Shared.Framework.Network.Remote.Event:FireServer("Teleport", "Workspace.Event.Portal.Spawn")
 							task.wait(1)
